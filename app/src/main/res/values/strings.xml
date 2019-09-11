@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">SendMeal</string>
+    <string name="app_name">Send Meal</string>
+    <string name="registro_titulo">Registrar Usuario</string>
+<string name="registro_nombre">Nombre:</string>
+<string name="registro_contraseña">Escribe tu contraseña</string>
+<string name="registro_contraseña2">Vuelve a escribir tu contraseña:</string>
+<string name="registro_correo">Ingrese su correo electrónico:</string>
+    <string name="registro_tarjeta_credito">Tarjeta de Credito:</string>
+    <string name="registro_cuenta">Tipo de cuenta:</string>
+    <string name="registro_notificacion_si">Quiero recibir notificaciones en mi correo</string>
+    <string name="registro_notificacion_no">No quiero recibir notificaciones en mi correo</string>
+<string name="registro_credito_inicial">Seleccionar Cr{edito Inicial:</string>
+    <string name="registro_vendedor_si">Quiero ser vendedor </string>
+    <string name="registro_vendedor_no">No quiero ser vendedor </string>
+    <string name="registro_condiciones">Acepto condiciones del servicio</string>
+    <string name="registro_alias">Ingrese el alias: </string>
+    <string name="registro_cbu">Ingrese su CBU: </string>
 </resources>
