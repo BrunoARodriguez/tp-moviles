@@ -182,7 +182,7 @@ btnRegistrar.setEnabled(true);
     public void onClick(View view){
 boolean esVendedor = false;
 String mensaje="";
-
+Toast.makeText(getApplicationContext(),"llegamos a onclick",Toast.LENGTH_LONG).show();
     if (this.validaciones(mensaje,esVendedor)==true){
 String  nombre=etNombre.getText().toString();
 String contrasenia = etContrasenia.getText().toString();
@@ -200,11 +200,14 @@ if  (esVendedor==true){
     CuentaBancaria cuentaBancaria=new CuentaBancaria(1,alias,ingresoCBU);
 this.usuario.setCuenta(cuentaBancaria);
 }
-        notificacionToasht(mensaje);
+        //notificacionToasht(mensaje);
+Toast.makeText(MainActivity.this,mensaje,Toast.LENGTH_LONG).show();
+
     }
     else {
         //doy notificacion negativa
-notificacionToasht(mensaje);
+//notificacionToasht(mensaje);
+Toast.makeText(MainActivity.this,mensaje,Toast.LENGTH_LONG).show();
     }
 
     }// cierra el metodo onClick
@@ -214,7 +217,10 @@ private  boolean validaciones(String mensaje,Boolean esVendedor) {
 String contrasenia=etContrasenia.getText().toString();
 String contraseniaRepetida=etContraseniaR.getText().toString();
 String correo=etCorreo.getText().toString();
+
+Toast.makeText(getApplicationContext(),"hola llegamos a validaciones", Toast.LENGTH_LONG).show();
         if ((etCorreo != null ) && (etContrasenia != null) && (etTarjeta1 != null) && (etTarjeta2  != null) && (etTarjeta3 != null)) {
+
             //compruebo claves iguales
             if (!contrasenia.equals(contraseniaRepetida)) {
                         mensaje ="Error. Las contrasenias no coinciden";
@@ -232,13 +238,13 @@ String correo=etCorreo.getText().toString();
             }
             //ahora comprobamos si es vendedor o solo comprador
 
-            if (chequeado) {
-            if ((etAliasCBU == null) || (etIngresoCBU == null)) {
+            if (this.chequeado) {
+            if ((etAliasCBU == null) && (etIngresoCBU == null)) {
                 //error no completo algun campo
                 mensaje = "¡Error!. No completo alguno de los campos obligatorios para ser vendedor.";
                 return  false;
             }
-            mensaje = "¡Tu suario como comprador y vendedor a sido registrado!";
+            mensaje = "¡Tu usario como comprador y vendedor a sido registrado!";
             esVendedor=true;
             return  true;
         }
@@ -250,13 +256,14 @@ else {
     }
     else {
         //si no estan completos
+            Toast.makeText(getApplicationContext(),"son nulos",Toast.LENGTH_LONG).show();
 mensaje = "Falto completar algun campo de los obligatorios";
 return  false;
     }
 }//cierra el metodo validaciones
 
 private boolean validarFecha() {
-
+/*
     //String fecha = "10/02/2013";
     //String[] fechArray = fecha.split("/");
 
@@ -274,12 +281,13 @@ private boolean validarFecha() {
     if ((fechaActual.get(Calendar.YEAR) == fechaIngresada.get(Calendar.YEAR)) && (fechaActual.get(Calendar.MONTH) + 2 >= fechaIngresada.get(Calendar.MONTH))) {
         return false;
     }
-
+*/
     return  true;
 }//cierra el metodo validar fecha
 
 
 /*
+OTRA FORMA QUE PROBAMOS PERO TAMBIEN SE CAIA LA APP
 String fecha=this.etTarjeta3.getText().toString();
 
 Integer mes= Integer.valueOf(fecha.substring(5,7));
@@ -297,11 +305,13 @@ if ((fechaActual.get(Calendar.YEAR) == fechaIngresada.get(Calendar.YEAR)) && (fe
     return  true;
 }//cierra el metodo validar fecha
 */
+/*
     private void  notificacionToasht(String m){
-        Context context= getApplicationContext();
+        Context context= MainActivity.this;
         int duracion= Toast.LENGTH_LONG;
 
-        Toast toast=Toast.makeText(context,m,duracion);
-        toast.show();
+                Toast.makeText(context,m,duracion).show();
+
     }
+    */
     }
