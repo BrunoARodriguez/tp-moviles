@@ -91,12 +91,28 @@ android:textSize="@dimen/etiquetas"
         android:layout_width="136dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
 
     <EditText
         android:id="@+id/ingresoTarjetaCredito3"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
-        android:inputType="date" />
+        android:inputType="number"
+        android:hint="Ingrese el mes de vencimiento:"/>
+
+    <EditText
+        android:id="@+id/ingresoTarjetaCredito4"
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Ingrese el año de vencimiento:"/>
+
+</LinearLayout>
 
 </LinearLayout>
 
@@ -160,6 +176,16 @@ android:text="Desea ser vendedor: "/>
         android:layout_height="wrap_content"
 android:textOff="@string/registro_vendedor_no"
         android:textOn="@string/registro_vendedor_si"/>
+
+<LinearLayout
+    android:id="@+id/linearVendedor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+
+
 <TextView android:id="@+id/textoAlias"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -171,7 +197,8 @@ android:textSize="@dimen/etiquetas"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 android:visibility="gone"
-    android:inputType="text"/>
+    android:inputType="text"
+    android:hint="ingrese alias"/>
 <TextView android:id="@+id/textoCBU"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -184,6 +211,8 @@ android:textSize="@dimen/etiquetas"
         android:layout_height="wrap_content"
 android:visibility="gone"
         android:inputType="text"/>
+</LinearLayout>
+
 
 <CheckBox android:id="@+id/btnCheckTerminos"
     android:layout_width="wrap_content"
@@ -196,5 +225,8 @@ android:text="@string/registro_condiciones"/>
 android:text="Registrar"
 android:enabled="false"/>
 
+
 </LinearLayout>
+
+
 </ScrollView>

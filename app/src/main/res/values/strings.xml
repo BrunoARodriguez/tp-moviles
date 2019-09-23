@@ -9,11 +9,23 @@
     <string name="registro_cuenta">Tipo de cuenta:</string>
     <string name="registro_notificacion_si">Quiero recibir notificaciones en mi correo</string>
     <string name="registro_notificacion_no">No quiero recibir notificaciones en mi correo</string>
-    <string name="registro_credito_inicial">Seleccionar Cr{edito Inicial:</string>
+    <string name="registro_credito_inicial">Seleccionar Crédito Inicial:</string>
     <string name="registro_vendedor_si">Quiero ser vendedor </string>
     <string name="registro_vendedor_no">No quiero ser vendedor </string>
     <string name="registro_condiciones">Acepto condiciones del servicio</string>
     <string name="registro_alias">Ingrese el alias: </string>
     <string name="registro_cbu">Ingrese su CBU: </string>
     <string name="Bienvenido">Bienvenido </string>
+    <string name="menu_opcion1">Registrarme</string>
+    <string name="menu_opcion2">Crear item</string>
+    <string name="menu_opcion3">Lista de items</string>
+    <string name="registro_titulo_toolbar">Menú Tolbar</string>
+    <string name="registro_texto_toolbar">Selecciona una opción</string>
+    <string name="registro_titulo_alta">Dar de alta un plato</string>
+    <string name="registro_titulo_plato">Titulo del plato: </string>
+    <string name="registro_descripcion_plato">Descripción: </string>
+    <string name="registro_precio_plato">Precio: </string>
+    <string name="registro_caloria_plato">Calorias: </string>
+    <string name="btn_guardar">Guardar</string>
+
 </resources>

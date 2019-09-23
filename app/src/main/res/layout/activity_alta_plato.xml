@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AltaPlatoActivity"
+    android:orientation="vertical">
+
+<TextView
+    android:id="@+id/tituloAltaActividad"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/titulo"
+    android:text="@string/registro_titulo_alta"/>
+
+    <TextView
+android:id="@+id/tituloAltaPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/etiquetas"
+        android:text="@string/registro_titulo_plato"/>
+
+    <EditText
+        android:id="@+id/ingresoTituloPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/descripcionPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/etiquetas"
+        android:text="@string/registro_descripcion_plato"/>
+
+    <EditText
+        android:id="@+id/ingresoDescripcionPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/precioPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/etiquetas"
+        android:text="@string/registro_precio_plato"/>
+
+    <EditText
+        android:id="@+id/ingresoPrecioPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/caloriaPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/etiquetas"
+        android:text="@string/registro_caloria_plato"/>
+
+    <EditText
+        android:id="@+id/ingresoCaloriaPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:inputType="number"  />
+
+
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_guardar"
+        android:enabled="true"/>
+
+</LinearLayout>
+

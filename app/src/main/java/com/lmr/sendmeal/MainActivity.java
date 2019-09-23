@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -31,17 +32,7 @@ import java.util.GregorianCalendar;
 
     public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     //punto 19.a declarar las variables
-    private TextView tvTitulo;
-    private TextView tvNombre;
-    private TextView tvContrasenia;
-    private TextView tvContraseniaR;
-    private TextView tvCorreo;
-    private TextView tvTarjetaCredito;
-    private TextView tvCuenta;
-    private TextView tvCreditoInicial;
-    private TextView tvVendedor;
-    private  TextView tvAlias;
-    private  TextView tvIngresoCBU;
+    private LinearLayout linearVendedor;
     private EditText etNombre;
     private EditText etContrasenia;
     private EditText etContraseniaR;
@@ -49,6 +40,7 @@ import java.util.GregorianCalendar;
 private   EditText etTarjeta1;
     private EditText etTarjeta2;
     private EditText etTarjeta3;
+    private  EditText etTarjeta4;
     private EditText etAliasCBU;
     private EditText etIngresoCBU;
     private SeekBar sbInicial;
@@ -66,22 +58,28 @@ private   EditText etTarjeta1;
 protected boolean chequeado;
 protected Usuario usuario;
 protected TarjetaDeCredito tarjeta;
+protected  CuentaBancaria cuentaBancaria;
+
+        protected  String nombre;
+protected  String contrasenia;
+protected  String contraseniaR;
+protected  String correo;
+protected  String numeroTarjeta;
+protected  String cvf;
+protected  String fechaVencimiento;
+//los parseados para la tarjeta
+protected  long numero_tarjeta;
+protected int codigoTarjeta;
+protected  Calendar fechaDeVencimiento;
+//campos para el vendedor
+protected  String alias;
+protected  String cbu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.tvTitulo = (TextView) findViewById(R.id.titulo);
-        this.tvNombre = (TextView) findViewById(R.id.nombre);
-        this.tvContrasenia = (TextView) findViewById(R.id.contrasenia);
-        this.tvContraseniaR = (TextView) findViewById(R.id.contraseniaR);
-        tvCorreo = (TextView) findViewById(R.id.correoElectronico);
-        tvTarjetaCredito = (TextView) findViewById(R.id.tarjeta);
-        tvCuenta = (TextView) findViewById(R.id.cuenta);
-        tvCreditoInicial = (TextView) findViewById(R.id.creditoInicial);
-        tvVendedor = (TextView) findViewById(R.id.textoEsVendedor);
-        tvAlias = (TextView) findViewById(R.id.textoAlias);
-        tvIngresoCBU = (TextView) findViewById(R.id.textoCBU);
+        linearVendedor=(LinearLayout) findViewById(R.id.linearVendedor);
         etNombre = (EditText) findViewById(R.id.ingresoNombre);
         etContrasenia = (EditText) findViewById(R.id.ingresoContrasenia);
         etContraseniaR = (EditText) findViewById(R.id.ingresoContraseniaR);
@@ -89,6 +87,7 @@ protected TarjetaDeCredito tarjeta;
         etTarjeta1 = (EditText) findViewById(R.id.ingresoTarjetaCredito1);
         etTarjeta2 = (EditText) findViewById(R.id.ingresoTarjetaCredito2);
         etTarjeta3 = (EditText) findViewById(R.id.ingresoTarjetaCredito3);
+        etTarjeta4=(EditText) findViewById(R.id.ingresoTarjetaCredito4);
         etAliasCBU = (EditText) findViewById(R.id.alias);
         etIngresoCBU = (EditText) findViewById(R.id.ingresoCBU);
         sbInicial = (SeekBar) findViewById(R.id.seleccionarCredito);
@@ -127,8 +126,7 @@ sbInicial.setMax(1500);
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 if (b){
-Integer cr=sbInicial.getProgress();
-creditoInicial +=cr;
+    Toast.makeText(getApplicationContext(),"Tu credito es: "+sbInicial.getProgress() +"/"+sbInicial.getMax(),Toast.LENGTH_LONG).show();
 
 
 }
@@ -142,7 +140,7 @@ creditoInicial +=cr;
 
             @Override
                public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(),"Tu credito es: "+creditoInicial +".",Toast.LENGTH_LONG).show();
+creditoInicial += sbInicial.getProgress();
 
             }
         });
@@ -156,111 +154,119 @@ creditoInicial +=cr;
 
     @Override
 public void onCheckedChanged(CompoundButton btnView, boolean isCheck){
-isCheck=sbtnSerVendedor.isChecked();
-        if (isCheck == true){
-            tvAlias.setVisibility(View.VISIBLE);
-            etAliasCBU.setVisibility(View.VISIBLE);
-            tvIngresoCBU.setVisibility(View.VISIBLE);
-            etIngresoCBU.setVisibility(View.VISIBLE);
-            this.chequeado=isCheck;
+
+        if (sbtnSerVendedor.isChecked()){
+linearVendedor.setVisibility(View.VISIBLE);
+            this.chequeado=true;
         }
         else{
-tvAlias.setVisibility(View.GONE);
-            etAliasCBU.setVisibility(View.GONE);
-            tvIngresoCBU.setVisibility(View.GONE);
-etIngresoCBU.setVisibility(View.GONE);
 
+linearVendedor.setVisibility(View.GONE);
+this.chequeado=false;
         }
+
         //para que avilite el boton nos fijamos si esta pulsado el cbCondiciones
-isCheck=cbTerminos.isChecked();
-if (isCheck == true)
+
+if (        cbTerminos.isChecked())
 btnRegistrar.setEnabled(true);
 
     }
 
     @Override
     public void onClick(View view){
-boolean esVendedor = false;
-String mensaje="";
-Toast.makeText(getApplicationContext(),"llegamos a onclick",Toast.LENGTH_LONG).show();
-    if (this.validaciones(mensaje,esVendedor)==true){
-String  nombre=etNombre.getText().toString();
-String contrasenia = etContrasenia.getText().toString();
-String correo=etCorreo.getText().toString();
-String numeroTarjeta=etTarjeta1.getText().toString();
-String fechaVencimiento=etTarjeta3.getText().toString();
-Integer digitoVerificacion=Integer.parseInt(etTarjeta2.getText().toString());
-this.tarjeta=new TarjetaDeCredito(fechaVencimiento,digitoVerificacion,1,numeroTarjeta);
+
+//Toast.makeText(getApplicationContext(),"llegamos a onclick",Toast.LENGTH_LONG).show();
+
+    if (this.validaciones()){
         //creo usuario y doy notifiaciion positiva
-this.usuario=new Usuario(1,nombre,contrasenia,correo,this.tarjeta,this.creditoInicial);
+        this.tarjeta=new TarjetaDeCredito(this.fechaVencimiento,this.codigoTarjeta,1,this.numeroTarjeta);
+this.usuario=new Usuario(1,this.nombre,this.contrasenia,this.correo,this.tarjeta,this.creditoInicial);
 //le creo una cuenta si es vendedor
-if  (esVendedor==true){
-    String  alias=etAliasCBU.getText().toString();
-    String  ingresoCBU=etIngresoCBU.getText().toString();
-    CuentaBancaria cuentaBancaria=new CuentaBancaria(1,alias,ingresoCBU);
+if  (this.chequeado){
+    CuentaBancaria cuentaBancaria=new CuentaBancaria(1,this.alias,this.cbu);
 this.usuario.setCuenta(cuentaBancaria);
 }
-        //notificacionToasht(mensaje);
-Toast.makeText(MainActivity.this,mensaje,Toast.LENGTH_LONG).show();
+
+Toast.makeText(MainActivity.this,"¡Tu usuario a sido creado!",Toast.LENGTH_LONG).show();
 
     }
     else {
         //doy notificacion negativa
-//notificacionToasht(mensaje);
-Toast.makeText(MainActivity.this,mensaje,Toast.LENGTH_LONG).show();
+
+Toast.makeText(MainActivity.this,"No se pudo registrar el usuario nuevo",Toast.LENGTH_LONG).show();
     }
 
     }// cierra el metodo onClick
 
 
-private  boolean validaciones(String mensaje,Boolean esVendedor) {
-String contrasenia=etContrasenia.getText().toString();
-String contraseniaRepetida=etContraseniaR.getText().toString();
-String correo=etCorreo.getText().toString();
+private  boolean validaciones() {
+this.nombre=etNombre.getText().toString();
+if (this.nombre.isEmpty()){
+    this.etNombre.setError("Obligatorio");
+    return  false;
+}
+    //validamos contraseñas
+this.contrasenia=etContrasenia.getText().toString();
+if (this.contrasenia.isEmpty()){
+    etContrasenia.setError("Obligatorio");
+    return  false;
+}
+this.contraseniaR=etContraseniaR.getText().toString();
+if (this.contraseniaR.isEmpty()){
+    etContraseniaR.setError("Obligatorio");
+    return  false;
+}
+//para el correo
+    this.correo=etCorreo.getText().toString();
+if (this.correo.isEmpty()){
+    etCorreo.setError("Obligatorio");
+    return  false;
+}
+if (this.correo.contains("@")){
+    etCorreo.setError("Falta @");
+    return  false;
+}
+// para la tarjeta
+this.numeroTarjeta=etTarjeta1.getText().toString();
+this.cvf=etTarjeta2.getText().toString();
+this.fechaVencimiento=etTarjeta3.getText().toString();
+if (this.numeroTarjeta.isEmpty()){
+    this.etTarjeta1.setError("Obligatorio");
+    return  false;
 
-Toast.makeText(getApplicationContext(),"hola llegamos a validaciones", Toast.LENGTH_LONG).show();
-        if ((etCorreo != null ) && (etContrasenia != null) && (etTarjeta1 != null) && (etTarjeta2  != null) && (etTarjeta3 != null)) {
+}
+if (this.cvf.isEmpty()){
+    etTarjeta2.setError("Obligatorio");
+    return  false;
+}
+if (this.fechaVencimiento.isEmpty()){
+    etTarjeta3.setError("Obligatorio");
+    return  false;
+}
 
-            //compruebo claves iguales
-            if (!contrasenia.equals(contraseniaRepetida)) {
-                        mensaje ="Error. Las contrasenias no coinciden";
+this.codigoTarjeta=Integer.parseInt(this.cvf);
+
+            if (!this.validarFecha()) {
+                this.etTarjeta3.setError("Fecha incorrecta");
                 return false;
-            }
-//compruebo la fecha ingresada el mes sea 3 meses mayor al actual
-            if (validarFecha() == false) {
-                mensaje = "Fecha de vencimiento de tarjeta incorrecta.";
-                return false;
-            }
-//comprobamos el correo
-            if (!correo.contains("@")){
-                mensaje="Error, el correo es incorrecto";
-                return  false;
             }
             //ahora comprobamos si es vendedor o solo comprador
+this.alias=etAliasCBU.getText().toString();
+            this.cbu=etIngresoCBU.getText().toString();
 
             if (this.chequeado) {
-            if ((etAliasCBU == null) && (etIngresoCBU == null)) {
-                //error no completo algun campo
-                mensaje = "¡Error!. No completo alguno de los campos obligatorios para ser vendedor.";
-                return  false;
-            }
-            mensaje = "¡Tu usario como comprador y vendedor a sido registrado!";
-            esVendedor=true;
-            return  true;
+if (this.alias.isEmpty()){
+    etAliasCBU.setError("Obligatorio");
+    return  false;
+}
+if (this.cbu.isEmpty()){
+    etIngresoCBU.setError("Obligatorio");
+    return  false;
+}
+
         }
-else {
-                //sigo si solo es comprador
-                mensaje = "Tu usuario en perfil comprador a sido registrado!";
-                return true;
-            }
-    }
-    else {
-        //si no estan completos
-            Toast.makeText(getApplicationContext(),"son nulos",Toast.LENGTH_LONG).show();
-mensaje = "Falto completar algun campo de los obligatorios";
-return  false;
-    }
-}//cierra el metodo validaciones
+    return  true;
+    }//cierra el metodo validaciones
 
 private boolean validarFecha() {
 /*
@@ -286,32 +292,4 @@ private boolean validarFecha() {
 }//cierra el metodo validar fecha
 
 
-/*
-OTRA FORMA QUE PROBAMOS PERO TAMBIEN SE CAIA LA APP
-String fecha=this.etTarjeta3.getText().toString();
-
-Integer mes= Integer.valueOf(fecha.substring(5,7));
-Integer anio= Integer.valueOf(fecha.substring(0,4));
-
-    Calendar fechaActual=Calendar.getInstance();
-Calendar fechaIngresada=Calendar.getInstance();
-fechaIngresada.set(Calendar.MONTH,mes);
-fechaIngresada.set(Calendar.YEAR,anio);
-
-if ((fechaActual.get(Calendar.YEAR) == fechaIngresada.get(Calendar.YEAR)) && (fechaActual.get(Calendar.MONTH)<= fechaIngresada.get(Calendar.MONTH)+3)) {
-    return false;
-}
-
-    return  true;
-}//cierra el metodo validar fecha
-*/
-/*
-    private void  notificacionToasht(String m){
-        Context context= MainActivity.this;
-        int duracion= Toast.LENGTH_LONG;
-
-                Toast.makeText(context,m,duracion).show();
-
-    }
-    */
     }
