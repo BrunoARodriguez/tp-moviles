@@ -17,8 +17,8 @@
     <string name="registro_cbu">Ingrese su CBU: </string>
     <string name="Bienvenido">Bienvenido </string>
     <string name="menu_opcion1">Registrarme</string>
-    <string name="menu_opcion2">Crear item</string>
-    <string name="menu_opcion3">Lista de items</string>
+    <string name="menu_opcion2">Crear un nuevo plato</string>
+    <string name="menu_opcion3">Lista de platos</string>
     <string name="registro_titulo_toolbar">Menú Tolbar</string>
     <string name="registro_texto_toolbar">Selecciona una opción</string>
     <string name="registro_titulo_alta">Dar de alta un plato</string>

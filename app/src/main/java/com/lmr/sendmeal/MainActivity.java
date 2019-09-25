@@ -103,9 +103,11 @@ protected  String cbu;
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
 //para el toolbar y que pueda volver para atras
         this.toolbar=findViewById(R.id.myTolbar);
-
+setSupportActionBar(this.toolbar);
+/*
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        */
 
 //para  ver que cuenta es nos fijamos que radio button esta marcado
 
@@ -190,8 +192,8 @@ btnRegistrar.setEnabled(true);
 this.usuario=new Usuario(1,this.nombre,this.contrasenia,this.correo,this.tarjeta,this.creditoInicial);
 //le creo una cuenta si es vendedor
 if  (this.chequeado){
-    CuentaBancaria cuentaBancaria=new CuentaBancaria(1,this.alias,this.cbu);
-this.usuario.setCuenta(cuentaBancaria);
+        CuentaBancaria cuentaBancaria=new CuentaBancaria(1,this.alias,this.cbu);
+    this.usuario.setCuenta(cuentaBancaria);
 }
 
 Toast.makeText(MainActivity.this,"¡Tu usuario a sido creado!",Toast.LENGTH_LONG).show();

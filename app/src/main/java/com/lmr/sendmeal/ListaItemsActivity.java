@@ -23,10 +23,13 @@ private Toolbar toolbar;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_items);
         this.toolbar=findViewById(R.id.myTolbar);
+setSupportActionBar(this.toolbar);
 
+
+        /*
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+*/
 mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
 mRecycler.setHasFixedSize(true);
 mLayoutManager = new LinearLayoutManager(this);
