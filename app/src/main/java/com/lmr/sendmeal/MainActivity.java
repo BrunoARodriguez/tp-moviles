@@ -1,12 +1,15 @@
     package com.lmr.sendmeal;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 import android.content.*;
 
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,7 +30,6 @@ import com.lmr.sendmeal.domain.TarjetaDeCredito;
 import com.lmr.sendmeal.domain.Usuario;
 import java.text.*;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 
     public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
@@ -52,7 +54,7 @@ private   EditText etTarjeta1;
     private CheckBox cbTerminos;
     private Switch sbtnSerVendedor;
     private Button btnRegistrar;
-
+private Toolbar toolbar;
     //variables
     protected Double creditoInicial=0.0;
 protected boolean chequeado;
@@ -66,9 +68,9 @@ protected  String contraseniaR;
 protected  String correo;
 protected  String numeroTarjeta;
 protected  String cvf;
-protected  String fechaVencimiento;
+
 //los parseados para la tarjeta
-protected  long numero_tarjeta;
+
 protected int codigoTarjeta;
 protected  Calendar fechaDeVencimiento;
 //campos para el vendedor
@@ -99,6 +101,11 @@ protected  String cbu;
         cbTerminos = (CheckBox) findViewById(R.id.btnCheckTerminos);
         sbtnSerVendedor = (Switch) findViewById(R.id.btnSerVendedor);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
+//para el toolbar y que pueda volver para atras
+        this.toolbar=findViewById(R.id.myTolbar);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 //para  ver que cuenta es nos fijamos que radio button esta marcado
 
@@ -179,7 +186,7 @@ btnRegistrar.setEnabled(true);
 
     if (this.validaciones()){
         //creo usuario y doy notifiaciion positiva
-        this.tarjeta=new TarjetaDeCredito(this.fechaVencimiento,this.codigoTarjeta,1,this.numeroTarjeta);
+        this.tarjeta=new TarjetaDeCredito(this.fechaDeVencimiento,this.codigoTarjeta,1,this.numeroTarjeta);
 this.usuario=new Usuario(1,this.nombre,this.contrasenia,this.correo,this.tarjeta,this.creditoInicial);
 //le creo una cuenta si es vendedor
 if  (this.chequeado){
@@ -229,28 +236,24 @@ if (this.correo.contains("@")){
 // para la tarjeta
 this.numeroTarjeta=etTarjeta1.getText().toString();
 this.cvf=etTarjeta2.getText().toString();
-this.fechaVencimiento=etTarjeta3.getText().toString();
+
 if (this.numeroTarjeta.isEmpty()){
     this.etTarjeta1.setError("Obligatorio");
     return  false;
 
 }
 if (this.cvf.isEmpty()){
-    etTarjeta2.setError("Obligatorio");
-    return  false;
-}
-if (this.fechaVencimiento.isEmpty()){
-    etTarjeta3.setError("Obligatorio");
+    this.etTarjeta2.setError("Obligatorio");
     return  false;
 }
 
-this.codigoTarjeta=Integer.parseInt(this.cvf);
 
             if (!this.validarFecha()) {
-                this.etTarjeta3.setError("Fecha incorrecta");
                 return false;
             }
-            //ahora comprobamos si es vendedor o solo comprador
+    this.codigoTarjeta=Integer.parseInt(this.cvf);
+
+    //ahora comprobamos si es vendedor o solo comprador
 this.alias=etAliasCBU.getText().toString();
             this.cbu=etIngresoCBU.getText().toString();
 
@@ -269,27 +272,40 @@ if (this.cbu.isEmpty()){
     }//cierra el metodo validaciones
 
 private boolean validarFecha() {
-/*
-    //String fecha = "10/02/2013";
-    //String[] fechArray = fecha.split("/");
-
-    String fecha=this.etTarjeta3.getText().toString();
-    String[] fechArray = fecha.split("-");
-
-    int dia = Integer.valueOf(fechArray[0]);
-    int mes = Integer.valueOf(fechArray[1]) - 1;
-    int anio = Integer.valueOf(fechArray[2]);
 
 
-    Calendar fechaIngresada = new GregorianCalendar(dia, mes, anio);
-    Calendar fechaActual = new GregorianCalendar();
+    int mes = Integer.parseInt(this.etTarjeta3.getText().toString());
+    int anio =Integer.parseInt(this.etTarjeta4.getText().toString());
+    Calendar fechaActual = Calendar.getInstance();
 
-    if ((fechaActual.get(Calendar.YEAR) == fechaIngresada.get(Calendar.YEAR)) && (fechaActual.get(Calendar.MONTH) + 2 >= fechaIngresada.get(Calendar.MONTH))) {
+    if (mes<0 || mes>11) {
+this.etTarjeta3.setError("¡Mes incorrecto!");
         return false;
     }
-*/
+    if (anio <fechaActual.get(Calendar.YEAR) || (anio > fechaActual.get(Calendar.YEAR)+5)){
+        this.etTarjeta4.setError("¡El año es incorrecto!");
+        return  false;
+    }
+        this.fechaDeVencimiento = Calendar.getInstance();
+        this.fechaDeVencimiento.set(Calendar.MONTH, mes);
+        this.fechaDeVencimiento.set(Calendar.YEAR, anio);
+
+        if ((fechaActual.get(Calendar.YEAR)==this.fechaDeVencimiento.get(Calendar.YEAR)) && (fechaActual.get(Calendar.MONTH)+3>= this.fechaDeVencimiento.get(Calendar.MONTH))) {
+            return false;
+        }
+
     return  true;
 }//cierra el metodo validar fecha
 
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item){
+            switch (item.getItemId()) {
+//responde si es el boton home
+                case android.R.id.home:
+                    onBackPressed();
+                    return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
 
     }

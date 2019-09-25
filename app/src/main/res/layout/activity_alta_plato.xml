@@ -7,6 +7,9 @@
     tools:context=".AltaPlatoActivity"
     android:orientation="vertical">
 
+<include
+    layout="@layout/mi_toolbar"></include>
+
 <TextView
     android:id="@+id/tituloAltaActividad"
     android:layout_width="match_parent"

@@ -34,15 +34,15 @@ Menu menu;
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnuOpt1:
-                Intent i1 = new Intent(this, MainActivity.class);
+                Intent i1 = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(i1);
                 return true;
             case R.id.mnuOpt2:
-Intent i2=new Intent(this,AltaPlatoActivity.class);
+Intent i2=new Intent(HomeActivity.this,AltaPlatoActivity.class);
 startActivity(i2);
                 return true;
             case R.id.mnuOpt3:
-                Intent i3=new Intent(this,ListaItemsActivity.class);
+                Intent i3=new Intent(HomeActivity.this,ListaItemsActivity.class);
                 startActivity(i3);
                 return true;
 

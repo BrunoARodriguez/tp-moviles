@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+<include
+android:id="@+id/includeMain"
+    layout="@layout/mi_toolbar"></include>
+
 <LinearLayout
     android:id="@+id/lrlayout1"
     android:layout_width="match_parent"
@@ -84,13 +89,15 @@ android:textSize="@dimen/etiquetas"
         android:id="@+id/ingresoTarjetaCredito1"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:inputType="text"
+        android:hint="Ingrese el número de la tarjeta:"/>
 
     <EditText
         android:id="@+id/ingresoTarjetaCredito2"
         android:layout_width="136dp"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:inputType="text"
+android:hint="Ingrese el codigo de verificación:"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

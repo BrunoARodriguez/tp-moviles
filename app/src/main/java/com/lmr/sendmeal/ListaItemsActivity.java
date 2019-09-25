@@ -26,6 +26,7 @@ private Toolbar toolbar;
 
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
 mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
 mRecycler.setHasFixedSize(true);
 mLayoutManager = new LinearLayoutManager(this);

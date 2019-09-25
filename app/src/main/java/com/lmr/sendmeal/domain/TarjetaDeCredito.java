@@ -1,15 +1,16 @@
 package com.lmr.sendmeal.domain;
 
-import java.util.Date;
+import java.util.Calendar;
+
 import java.util.Objects;
 
 public class TarjetaDeCredito {
 private Integer id;
     private String  numeroDeTarjeta;
-private String fechaVencimiento;
+private Calendar fechaVencimiento;
 private  Integer digitoVerificacion;
 
-    public TarjetaDeCredito(String  fechaVencimiento,Integer digitoVerificacion,Integer id,String numeroDeTarjeta) {
+    public TarjetaDeCredito(Calendar fechaVencimiento,Integer digitoVerificacion,Integer id,String numeroDeTarjeta) {
         this.fechaVencimiento = fechaVencimiento;
         this.digitoVerificacion=digitoVerificacion;
         this.id    =id;
@@ -25,16 +26,16 @@ private  Integer digitoVerificacion;
         this.numeroDeTarjeta = numeroDeTarjeta;
     }
 
-    public String getFechaVencimiento() {
+    public Calendar getFechaVencimiento() {
 
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(String  fechaVencimiento) {
+    public void setFechaVencimiento(Calendar fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public Integer getDigitoVerificacion() {
+        public Integer  getDigitoVerificacion() {
 
         return digitoVerificacion;
     }

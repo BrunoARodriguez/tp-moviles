@@ -7,14 +7,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <item android:id="@+id/mnuOpt1"
             android:title="@string/menu_opcion1"
-            android:orderInCategory="1" app:showAsAction="ifRoom"></item>
+            android:orderInCategory="1"
+            app:showAsAction="ifRoom"></item>
         <item android:id="@+id/mnuOpt2"
             android:title="@string/menu_opcion2"
             android:orderInCategory="2" app:showAsAction="ifRoom"></item>
 
         <item android:id="@+id/mnuOpt3"
             android:title="@string/menu_opcion3"
-            android:orderInCategory="2"
+            android:orderInCategory="3"
             app:showAsAction="ifRoom"></item>
 
 
