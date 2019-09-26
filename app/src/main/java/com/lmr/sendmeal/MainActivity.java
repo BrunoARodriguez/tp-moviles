@@ -231,7 +231,7 @@ if (this.correo.isEmpty()){
     etCorreo.setError("Obligatorio");
     return  false;
 }
-if (this.correo.contains("@")){
+if (!this.correo.contains("@")){
     etCorreo.setError("Falta @");
     return  false;
 }

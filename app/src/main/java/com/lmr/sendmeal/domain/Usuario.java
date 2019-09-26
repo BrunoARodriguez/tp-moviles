@@ -1,8 +1,9 @@
-package com.lmr.sendmeal.domain;
+    package com.lmr.sendmeal.domain;
 
 import android.provider.ContactsContract;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario {
 
@@ -13,6 +14,7 @@ public class Usuario {
     private TarjetaDeCredito tarjeta;
     private Double credito;
     private CuentaBancaria cuenta;
+public static List<Usuario> usuarios=new ArrayList<>();
 
     public Usuario(Integer id,String nombre,String contraseña,String correoElectronico,TarjetaDeCredito tarjeta,Double credito) {
 this.id=id;
@@ -21,6 +23,7 @@ this.id=id;
         this.correoElectronico=correoElectronico;
 this.tarjeta=tarjeta;
 this.credito=credito;
+usuarios.add(this);
     }
 
     public String getNombre() {

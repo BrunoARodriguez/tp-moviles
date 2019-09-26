@@ -91,32 +91,33 @@ android:textSize="@dimen/etiquetas"
         android:id="@+id/ingresoTarjetaCredito1"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="number"
         android:hint="Ingrese el número de la tarjeta:"/>
 
     <EditText
         android:id="@+id/ingresoTarjetaCredito2"
         android:layout_width="136dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="number"
 android:hint="Ingrese el codigo de verificación:"/>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
 
     <EditText
         android:id="@+id/ingresoTarjetaCredito3"
-        android:layout_width="166dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="Ingrese el mes de vencimiento:"/>
 
     <EditText
         android:id="@+id/ingresoTarjetaCredito4"
-        android:layout_width="166dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="Ingrese el año de vencimiento:"/>
@@ -128,7 +129,7 @@ android:hint="Ingrese el codigo de verificación:"/>
 
 
 <TextView android:id="@+id/cuenta"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
 android:textSize="@dimen/etiquetas"
 android:text="@string/registro_cuenta"    />

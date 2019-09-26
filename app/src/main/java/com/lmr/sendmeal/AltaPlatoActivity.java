@@ -32,6 +32,8 @@ private Toolbar toolbar;
         btnGuardar=(Button) findViewById(R.id.btnGuardar);
         //para que el toolbar muestre la opccion de ir hacia atras
         this.toolbar=findViewById(R.id.myTolbar);
+
+
 /*
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
