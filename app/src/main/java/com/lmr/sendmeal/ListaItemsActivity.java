@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
@@ -34,8 +35,9 @@ mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
 mRecycler.setHasFixedSize(true);
 mLayoutManager = new LinearLayoutManager(this);
 mRecycler.setLayoutManager(mLayoutManager);
-mAdapter=new PlatoRecyclerAdapter(Plato.platoLis);
+mAdapter=new PlatoRecyclerAdapter(Plato.platoLis,ListaItemsActivity.this);
 mRecycler.setAdapter(mAdapter);
+
 
     }
 

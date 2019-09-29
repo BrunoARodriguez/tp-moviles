@@ -27,5 +27,8 @@
     <string name="registro_precio_plato">Precio: </string>
     <string name="registro_caloria_plato">Calorias: </string>
     <string name="btn_guardar">Guardar</string>
+<string name="dialogo_quitar_plato">¿Quiere eliminar este plato?</string>
+    <string name="dialogo_confirmar">Quitar</string>
+    <string name="dialogo_cancelar">Cancelar</string>
 
 </resources>

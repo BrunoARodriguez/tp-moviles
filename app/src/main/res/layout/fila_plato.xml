@@ -2,31 +2,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <androidx.cardview.widget.CardView
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/carView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="195dp"
         android:layout_gravity="center"
         app:cardCornerRadius="4dp">
 
-        <TextView
-            android:id="@+id/tituloPlato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="180dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imagenPlato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Una imagen de un plato de comida"
-            android:src="@drawable/comida"/>
 
-        <TextView
-            android:id="@+id/precioPlato"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imagenPlato"
+                android:layout_width="117dp"
+                android:layout_height="150dp"
+                android:contentDescription="Una imagen de un plato de comida"
+                android:src="@drawable/comida" />
+
+            <LinearLayout
+                android:layout_width="275dp"
+                android:layout_height="159dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="231dp"
+                    android:layout_height="89dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tituloPlato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/precioPlato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOfertaPlato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Oferta" />
+
+                    <Button
+                        android:id="@+id/btnEditarPlato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Editar" />
+
+                    <Button
+                        android:id="@+id/btnQuitarPlato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Quitar" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>

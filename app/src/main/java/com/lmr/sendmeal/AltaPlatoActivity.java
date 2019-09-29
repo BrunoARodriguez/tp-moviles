@@ -4,6 +4,7 @@ package com.lmr.sendmeal;
     import androidx.appcompat.app.AppCompatActivity;
     import androidx.appcompat.widget.Toolbar;
 
+    import android.content.Intent;
     import android.os.Bundle;
     import android.view.MenuItem;
     import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+    import java.io.Serializable;
 
-public class AltaPlatoActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class AltaPlatoActivity extends AppCompatActivity implements View.OnClickListener, Serializable {
 private EditText etTitulo;
 private  EditText etDescripcion;
 private  EditText etPrecio;
@@ -20,6 +23,7 @@ private  EditText etCalorias;
 private Button btnGuardar;
 private  Plato plato;
 private Toolbar toolbar;
+private  Boolean editando=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,17 @@ private Toolbar toolbar;
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 */
-        btnGuardar.setOnClickListener(this);
+        Intent intent=getIntent();
+        if (intent != null){
+                    plato=(Plato) intent.getExtras().getSerializable("parametro");
+
+        etTitulo.setText(plato.getTitulo());
+etDescripcion.setText(plato.getDescripcion());
+editando=true
+        }
+            else
+                editando=false;
+                btnGuardar.setOnClickListener(this);
     }
 
 
@@ -57,9 +71,14 @@ private Toolbar toolbar;
         }
         else {
             if (titulo.length() >= 5 && descripcion.length() >= 10) {
-                Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
-                this.plato = new Plato(1, titulo, descripcion, precio, caloria);
-
+                if (editando) {
+                Toast.makeText(AltaPlatoActivity.this,"¡Su plato se editó!",Toast.LENGTH_LONG).show();
+                finishActivity(0);
+                }
+                else {
+                    Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
+                    this.plato = new Plato(1, titulo, descripcion, precio, caloria);
+                }
             }
             else
             Toast.makeText(AltaPlatoActivity.this,"El titulo debe ser mayor a 4 caracteres y la descripcion mayor a 9",Toast.LENGTH_LONG).show();
