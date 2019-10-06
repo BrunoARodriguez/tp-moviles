@@ -2,8 +2,10 @@ package com.lmr.sendmeal.recycler;
 
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lmr.sendmeal.AltaPlatoActivity;
 import com.lmr.sendmeal.ListaItemsActivity;
+import com.lmr.sendmeal.MiReceiver;
 import com.lmr.sendmeal.Plato;
 import com.lmr.sendmeal.R;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Serializable {
+public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Serializable,Runnable {
     private java.util.List<Plato> platos;
 private Context miContexto;
 
@@ -71,7 +74,26 @@ ConfirmacionDialogFragment cdf=new ConfirmacionDialogFragment(posicion);
     holder.btnOferta.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+plato.setEstaEnOferta(true);
+Runnable r= new Runnable() {
+    @Override
+    public void run() {
+        Log.d("CLASE01","Creando hilo secundario");
+try {
+    Thread.sleep(10000);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+Intent intent=new Intent();
+intent.putExtra("titulo","notificacion oferta");
+        intent.putExtra("texto","selecciona para ver el plato en oferta");
+        intent.setAction(MiReceiver.EVENTO_01);
 
+    }//cierra metodo run
+}//cierra runa.
+Thread t1=new Thread(r);
+t1.start();
+Log.d("CLASE01","Finaliza hilo");
         }
     });
 

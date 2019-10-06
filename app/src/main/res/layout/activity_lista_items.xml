@@ -19,7 +19,7 @@ android:layout_width="match_parent"
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/seleccionarPlato"
     android:scrollbars="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="match_paren   t"
     android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
 

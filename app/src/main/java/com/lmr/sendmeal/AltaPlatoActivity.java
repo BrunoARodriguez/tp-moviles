@@ -42,13 +42,14 @@ private  Boolean editando=false;
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 */
-        Intent intent=getIntent();
-        if (intent != null){
-                    plato=(Plato) intent.getExtras().getSerializable("parametro");
+        plato=(Plato) getIntent().getExtras().getSerializable("parametro");
+        if (plato != null){
 
         etTitulo.setText(plato.getTitulo());
 etDescripcion.setText(plato.getDescripcion());
-editando=true
+etPrecio.setText(String.valueOf(plato.getPrecio()));
+etCalorias.setText(String.valueOf(plato.getCalorias()));
+editando=true;
         }
             else
                 editando=false;

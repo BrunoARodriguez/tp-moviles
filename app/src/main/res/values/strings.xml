@@ -30,5 +30,7 @@
 <string name="dialogo_quitar_plato">¿Quiere eliminar este plato?</string>
     <string name="dialogo_confirmar">Quitar</string>
     <string name="dialogo_cancelar">Cancelar</string>
+    <string name="nombre_canal">mlr canal</string>
+<string name="descripcion_canal">el canal de nuestras notificaciones</string>
 
 </resources>
