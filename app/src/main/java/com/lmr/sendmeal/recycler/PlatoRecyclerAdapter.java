@@ -1,7 +1,9 @@
 package com.lmr.sendmeal.recycler;
 
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +31,7 @@ import java.util.List;
 public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Serializable,Runnable {
     private java.util.List<Plato> platos;
 private Context miContexto;
-
+private  final  int RESULTADO=1;
 
     public PlatoRecyclerAdapter(List<Plato> myLista,Context context) {
         platos = myLista;
@@ -53,10 +55,11 @@ holder.btnEditar.setOnClickListener(new View.OnClickListener() {
         Intent i=new Intent(miContexto, AltaPlatoActivity.class);
 i.putExtra("parametro",plato);
 
-        miContexto.startActivity(i);
-platos.remove(posicion);
-platos.add(plato);
-
+        ((Activity) miContexto).startActivityForResult(i, RESULTADO);
+        if (RESULTADO) {
+            platos.remove(posicion);
+            platos.add(plato);
+        }
 
     }
 });
@@ -88,6 +91,7 @@ Intent intent=new Intent();
 intent.putExtra("titulo","notificacion oferta");
         intent.putExtra("texto","selecciona para ver el plato en oferta");
         intent.setAction(MiReceiver.EVENTO_01);
+        miContexto.sendBroadcast(intent);
 
     }//cierra metodo run
 }//cierra runa.

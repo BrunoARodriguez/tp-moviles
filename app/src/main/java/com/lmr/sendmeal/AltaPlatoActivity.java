@@ -24,6 +24,7 @@ private Button btnGuardar;
 private  Plato plato;
 private Toolbar toolbar;
 private  Boolean editando=false;
+private  Integer idPlato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ private  Boolean editando=false;
         etPrecio=(EditText) findViewById(R.id.ingresoPrecioPlato);
         etCalorias=(EditText) findViewById(R.id.ingresoCaloriaPlato);
         btnGuardar=(Button) findViewById(R.id.btnGuardar);
+        //inicializamos el id
+        this.idPlato=0;
         //para que el toolbar muestre la opccion de ir hacia atras
         this.toolbar=findViewById(R.id.myTolbar);
 
@@ -42,7 +45,9 @@ private  Boolean editando=false;
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 */
-        plato=(Plato) getIntent().getExtras().getSerializable("parametro");
+
+        plato= getIntent().getParcelableExtra("parametro")
+
         if (plato != null){
 
         etTitulo.setText(plato.getTitulo());
@@ -73,12 +78,17 @@ editando=true;
         else {
             if (titulo.length() >= 5 && descripcion.length() >= 10) {
                 if (editando) {
-                Toast.makeText(AltaPlatoActivity.this,"¡Su plato se editó!",Toast.LENGTH_LONG).show();
-                finishActivity(0);
+                plato.setTitulo(titulo);
+                plato.setDescripcion(descripcion);
+                plato.setPrecio(precio);
+                plato.setCalorias(caloria);
+                                    Toast.makeText(AltaPlatoActivity.this,"¡Su plato se editó!",Toast.LENGTH_LONG).show();
+                finishActivity(1);
                 }
                 else {
                     Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
-                    this.plato = new Plato(1, titulo, descripcion, precio, caloria);
+                    this.plato = new Plato(this.idPlato, titulo, descripcion, precio, caloria);
+                    this.idPlato++;
                 }
             }
             else

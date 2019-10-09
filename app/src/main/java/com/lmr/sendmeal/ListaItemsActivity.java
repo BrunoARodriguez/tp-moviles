@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -31,6 +33,10 @@ setSupportActionBar(this.toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 */
+        BroadcastReceiver br=new MiReceiver();
+        IntentFilter filtro=new IntentFilter(MiReceiver.EVENTO_01);
+filtro.addAction(MiReceiver.EVENTO_01);
+this.registerReceiver(br,filtro);
 mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
 mRecycler.setHasFixedSize(true);
 mLayoutManager = new LinearLayoutManager(this);

@@ -61,6 +61,10 @@ protected boolean chequeado;
 protected Usuario usuario;
 protected TarjetaDeCredito tarjeta;
 protected  CuentaBancaria cuentaBancaria;
+protected Integer idUsuario;
+protected  Integer idCuenta;
+        protected  Integer idTarjeta;
+
 
         protected  String nombre;
 protected  String contrasenia;
@@ -100,7 +104,10 @@ protected  String cbu;
         tbRecibirCorreo = (ToggleButton) findViewById(R.id.btnRecibirCorreo);
         cbTerminos = (CheckBox) findViewById(R.id.btnCheckTerminos);
         sbtnSerVendedor = (Switch) findViewById(R.id.btnSerVendedor);
-        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
+        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);//inicializamos los id
+        this.idUsuario=0;
+        this.idTarjeta=0;
+        this.idCuenta=0;
 //para el toolbar y que pueda volver para atras
         this.toolbar=findViewById(R.id.myTolbar);
 setSupportActionBar(this.toolbar);
@@ -188,11 +195,15 @@ btnRegistrar.setEnabled(true);
 
     if (this.validaciones()){
         //creo usuario y doy notifiaciion positiva
-        this.tarjeta=new TarjetaDeCredito(this.fechaDeVencimiento,this.codigoTarjeta,1,this.numeroTarjeta);
-this.usuario=new Usuario(1,this.nombre,this.contrasenia,this.correo,this.tarjeta,this.creditoInicial);
+        this.tarjeta=new TarjetaDeCredito(this.fechaDeVencimiento,this.codigoTarjeta,this.idTarjeta ,this.numeroTarjeta);
+        this
+                .idTarjeta++;
+this.usuario=new Usuario(this.idUsuario,this.nombre,this.contrasenia,this.correo,this.tarjeta,this.creditoInicial);
+this.idUsuario++;
 //le creo una cuenta si es vendedor
 if  (this.chequeado){
-        CuentaBancaria cuentaBancaria=new CuentaBancaria(1,this.alias,this.cbu);
+        CuentaBancaria cuentaBancaria=new CuentaBancaria(this.idCuenta,this.alias,this.cbu);
+        this.idCuenta++;
     this.usuario.setCuenta(cuentaBancaria);
 }
 

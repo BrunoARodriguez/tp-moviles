@@ -11,8 +11,8 @@ import androidx.core.app.NotificationCompat;
 import java.nio.channels.Channel;
 
 public class MiReceiver extends BroadcastReceiver {
-public  static  final  String EVENTO_01=Intent.ACTION_DEFAULT;
-    public  static  final  String EVENTO_02="Evento_02_MENSAJE";
+public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
+    public  static  final  String EVENTO_02="com.lmr.sendmeal.EVENTO_02_MENSAJE";
     long[] v = {500,1000,250,500};
 
             @Override
@@ -21,7 +21,7 @@ public  static  final  String EVENTO_01=Intent.ACTION_DEFAULT;
                 destino.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent=PendingIntent.getActivities(context,0,destino,0);
                 NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(this, canl)
-                        .setSmallIcon(R.drawable.comida)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(intent.getExtras().getString("titulo"))
                         .setContentText(intent.getExtras().getString("texto"))
                         .setContentIntent(pendingIntent)
