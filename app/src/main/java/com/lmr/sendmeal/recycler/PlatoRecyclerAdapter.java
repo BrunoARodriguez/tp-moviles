@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,11 +68,23 @@ i.putExtra("parametro",plato);
 holder.btnQuitar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-ConfirmacionDialogFragment cdf=new ConfirmacionDialogFragment(posicion);
-        Dialog dialog=cdf.onCreateDialog();
+AlertDialog.Builder builder=new AlertDialog.Builder(miContexto);
+builder.setMessage(R.string.dialogo_quitar_plato)
+.setPositiveButton(R.string.dialogo_confirmar, new
+        DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                platos.remove(posicion);
 
-        dialog.show();
-
+            }})
+.setNegativeButton(R.string.dialogo_cancelar, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(miContexto,"No se eliminara el plato",Toast.LENGTH_LONG)
+                        .show();
+            }});
+AlertDialog dialog=builder.create();
+dialog.show();
     }
 });
     holder.btnOferta.setOnClickListener(new View.OnClickListener() {
@@ -129,32 +142,5 @@ Log.d("CLASE01","Finaliza hilo");
         }
     }
 
-    public class ConfirmacionDialogFragment extends DialogFragment {
-int posicion;
-
-public ConfirmacionDialogFragment(Int posicion){
-    this.posicion=posicion;
-
-        }
-
-            @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
-        AlertDialog.Builder builder = new AlertDialog.Builder(getClass());
-        builder.setMessage(R.string.dialogo_quitar_plato)
-               .setPositiveButton(R.string.dialogo_confirmar, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-platos.remove(posicion);
-                   }
-               })
-               .setNegativeButton(R.string.dialogo_cancelar, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-//no se hace nada
-                   }
-               });
-//devolvemos el objeto creandolo
-        return builder.create();
-    }
-    }
     }
 
