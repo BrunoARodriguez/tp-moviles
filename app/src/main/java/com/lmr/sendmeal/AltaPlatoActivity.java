@@ -4,6 +4,7 @@ package com.lmr.sendmeal;
     import androidx.appcompat.app.AppCompatActivity;
     import androidx.appcompat.widget.Toolbar;
 
+    import android.app.Activity;
     import android.content.Intent;
     import android.os.Bundle;
     import android.view.MenuItem;
@@ -46,7 +47,7 @@ private  Integer idPlato;
         actionBar.setDisplayHomeAsUpEnabled(true);
 */
 
-        plato= getIntent().getParcelableExtra("parametro")
+        plato= getIntent().getParcelableExtra("parametro");
 
         if (plato != null){
 
@@ -83,7 +84,12 @@ editando=true;
                 plato.setPrecio(precio);
                 plato.setCalorias(caloria);
                                     Toast.makeText(AltaPlatoActivity.this,"¡Su plato se editó!",Toast.LENGTH_LONG).show();
-                finishActivity(1);
+                                    Intent intent=new Intent(this,ListaItemsActivity.class);
+                                    intent.putExtra("parametro",plato)
+                                    .putExtra("parametro2",Plato.platoLis.indexOf(plato));
+
+                                    setResult(Activity.RESULT_OK,intent);
+                finish();
                 }
                 else {
                     Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();

@@ -6,13 +6,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
+
+import java.util.List;
 
 
     public class ListaItemsActivity extends AppCompatActivity {
@@ -44,9 +48,22 @@ mRecycler.setLayoutManager(mLayoutManager);
 mAdapter=new PlatoRecyclerAdapter(Plato.platoLis,ListaItemsActivity.this);
 mRecycler.setAdapter(mAdapter);
 
-
     }
 
+@Override
+public void  onActivityResult(int requestCode, int resultCode, Intent data) {
+super.onActivityResult(requestCode,resultCode,data);
+switch (requestCode){
+    case 1:
+if (resultCode == Activity.RESULT_OK){
+    Plato plato=data.getParcelableExtra("parametro");
+Plato.platoLis.remove(data.getIntExtra("parametro2",0));
+Plato.platoLis.add(plato);
+}
+break;
+} //cierra swich
+
+}
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {

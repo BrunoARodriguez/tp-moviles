@@ -17,8 +17,9 @@ public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
 
             @Override
     public  void  onReceive(Context context, Intent intent) {
-                Intent destino=new Intent(context,AltaPlatoActivity);
-                destino.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent destino=new Intent(context,AltaPlatoActivity.class);
+                destino.putExtra("mostrandoOferta",true)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent=PendingIntent.getActivities(context,0,destino,0);
                 NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(this, canl)
                         .setSmallIcon(R.mipmap.ic_launcher)

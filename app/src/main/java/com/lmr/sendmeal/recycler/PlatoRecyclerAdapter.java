@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,23 +28,17 @@ import com.lmr.sendmeal.MiReceiver;
 import com.lmr.sendmeal.Plato;
 import com.lmr.sendmeal.R;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Serializable,Runnable {
+public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Runnable {
     private java.util.List<Plato> platos;
 private Context miContexto;
-private  final  int RESULTADO=1;
+private static final  int RESULTADO=1;
 
     public PlatoRecyclerAdapter(List<Plato> myLista,Context context) {
         platos = myLista;
         miContexto=context;
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return  this.platos.size();
     }
 
 @Override
@@ -54,13 +50,9 @@ holder.btnEditar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         Intent i=new Intent(miContexto, AltaPlatoActivity.class);
-i.putExtra("parametro",plato);
+i.putExtra("parametro", plato);
 
         ((Activity) miContexto).startActivityForResult(i, RESULTADO);
-        if (RESULTADO) {
-            platos.remove(posicion);
-            platos.add(plato);
-        }
 
     }
 });

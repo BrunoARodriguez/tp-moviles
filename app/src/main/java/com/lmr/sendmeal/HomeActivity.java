@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         this.toolbar = (Toolbar) findViewById(R.id.myTolbar);
         setSupportActionBar(toolbar);
-this.createNotificacionChanel();
+//this.createNotificacionChanel();
     }//cierra el metodo onCreate
 
     @Override
@@ -55,7 +55,7 @@ this.createNotificacionChanel();
                 return super.onOptionsItemSelected(item);
         }
     }
-
+/*
 private void  createNotificacionChanel(){
 if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
     CharSequence name=getString(R.string.nombre_canal);
@@ -66,7 +66,8 @@ if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
     NotificationManager notificationManager=getSystemService(NotificationManager.class);
 notificationManager.createNotificationChannel(canal);
 }
-
 }
+*/
+
 }
 
