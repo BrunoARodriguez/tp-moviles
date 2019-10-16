@@ -59,11 +59,12 @@ if (resultCode == Activity.RESULT_OK){
     Plato plato=data.getParcelableExtra("parametro");
 Plato.platoLis.remove(data.getIntExtra("parametro2",0));
 Plato.platoLis.add(plato);
+        mAdapter.notifyDataSetChanged();
 }
 break;
 } //cierra swich
 
-}
+}// cierra onActivityResult
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {

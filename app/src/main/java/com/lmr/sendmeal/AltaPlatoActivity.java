@@ -59,7 +59,17 @@ editando=true;
         }
             else
                 editando=false;
-                btnGuardar.setOnClickListener(this);
+            Boolean desavilitarCampos;
+                    desavilitarCampos=getIntent().getExtras().getBoolean("mostrandoOferta");
+if (desavilitarCampos){
+    etTitulo.setEnabled(false);
+    etDescripcion.setEnabled(false);
+    etPrecio.setEnabled(false);
+    etCalorias.setEnabled(false);
+}
+else {
+    btnGuardar.setOnClickListener(this);
+}
     }
 
 

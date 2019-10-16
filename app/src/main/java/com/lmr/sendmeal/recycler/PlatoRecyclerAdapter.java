@@ -28,11 +28,12 @@ import com.lmr.sendmeal.MiReceiver;
 import com.lmr.sendmeal.Plato;
 import com.lmr.sendmeal.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdapter.PlatoViewHolder> implements Runnable {
-    private java.util.List<Plato> platos;
-private Context miContexto;
+    private List<Plato> platos=new ArrayList<>();
+    private Context miContexto;
 private static final  int RESULTADO=1;
 
     public PlatoRecyclerAdapter(List<Plato> myLista,Context context) {
@@ -132,7 +133,14 @@ Log.d("CLASE01","Finaliza hilo");
             this.btnOferta=(Button) base.findViewById(R.id.btnOfertaPlato);
             this.btnQuitar=(Button) base.findViewById(R.id.btnQuitarPlato);
         }
+    }//cierra clase
+
+    public List<Plato> getPlatos() {
+        return platos;
     }
 
+    public void setPlatos(List<Plato> platos) {
+        this.platos = platos;
     }
+}
 
