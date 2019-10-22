@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
 import java.util.List;
@@ -45,7 +46,7 @@ mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
 mRecycler.setHasFixedSize(true);
 mLayoutManager = new LinearLayoutManager(this);
 mRecycler.setLayoutManager(mLayoutManager);
-mAdapter=new PlatoRecyclerAdapter(Plato.platoLis,ListaItemsActivity.this);
+mAdapter=new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(),ListaItemsActivity.this);
 mRecycler.setAdapter(mAdapter);
 
     }
@@ -57,8 +58,8 @@ switch (requestCode){
     case 1:
 if (resultCode == Activity.RESULT_OK){
     Plato plato=data.getParcelableExtra("parametro");
-Plato.platoLis.remove(data.getIntExtra("parametro2",0));
-Plato.platoLis.add(plato);
+PlatoRepositorio.getInstance().getListaPlatos().remove(data.getIntExtra("parametro2",0));
+PlatoRepositorio.getInstance().getListaPlatos().add(plato);
         mAdapter.notifyDataSetChanged();
 }
 break;

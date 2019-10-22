@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+    import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
+
     import java.io.Serializable;
 
 
@@ -96,7 +98,7 @@ else {
                                     Toast.makeText(AltaPlatoActivity.this,"¡Su plato se editó!",Toast.LENGTH_LONG).show();
                                     Intent intent=new Intent(this,ListaItemsActivity.class);
                                     intent.putExtra("parametro",plato)
-                                    .putExtra("parametro2",Plato.platoLis.indexOf(plato));
+                                    .putExtra("parametro2", PlatoRepositorio.getInstance().getListaPlatos().indexOf(plato));
 
                                     setResult(Activity.RESULT_OK,intent);
                 finish();

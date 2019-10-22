@@ -4,6 +4,8 @@ package com.lmr.sendmeal;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,6 @@ public class Plato implements Parcelable {
     private Double precio;
     private Integer calorias;
     private  Boolean estaEnOferta;
-    public static List<Plato> platoLis=new ArrayList<>();
 
 
     public Plato(Integer id, String titulo, String descripcion, Double precio, Integer calorias) {
@@ -24,8 +25,8 @@ public class Plato implements Parcelable {
 
         this.precio = precio;
         this.calorias = calorias;
-        this.estaEnOferta=false;
-        platoLis.add(this);
+        this.estaEnOferta = false;
+        PlatoRepositorio.getInstance().getListaPlatos().add(this);
     }
 
     //constructor para el parcelable

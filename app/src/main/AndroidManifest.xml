@@ -2,15 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lmr.sendmeal">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-    
-        <activity android:name=".AltaPlatoActivity"></activity>
+        <activity android:name=".BuscarPlatoActivity"></activity>
+        <activity android:name=".AltaPlatoActivity" />
         <activity android:name=".ListaItemsActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
@@ -20,8 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-            
     </application>
-<uses-permission android:name="android.permission.VIBRATE"/>
 
 </manifest>
