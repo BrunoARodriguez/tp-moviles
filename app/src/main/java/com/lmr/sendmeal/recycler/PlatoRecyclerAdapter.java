@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lmr.sendmeal.AltaPlatoActivity;
+import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
 import com.lmr.sendmeal.ListaItemsActivity;
 import com.lmr.sendmeal.MiReceiver;
 import com.lmr.sendmeal.Plato;
@@ -35,7 +37,7 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdap
     private List<Plato> platos=new ArrayList<>();
     private Context miContexto;
 private static final  int RESULTADO=1;
-
+private PlatoRepositorio pr;
     public PlatoRecyclerAdapter(List<Plato> myLista,Context context) {
         platos = myLista;
         miContexto=context;
@@ -67,8 +69,13 @@ builder.setMessage(R.string.dialogo_quitar_plato)
         DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                platos.remove(posicion);
-
+Handler handler=new
+        Handler();
+                pr.eliminarPlato(pr.getListaPlatos().get(posicion), handler);
+        if (handler.obtainMessage().arg1==PlatoRepositorio.PLATO_BORRAR)
+Toast.makeText(miContexto,"El plato se elimino con exito", Toast.LENGTH_LONG).show();
+        if (handler.obtainMessage().arg1==PlatoRepositorio.PLATO_ERROR)
+            Toast.makeText(miContexto,"No se pudo eliminar el plato a ocurrido un error", Toast.LENGTH_SHORT).show();
             }})
 .setNegativeButton(R.string.dialogo_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -98,9 +105,8 @@ intent.putExtra("titulo","notificacion oferta");
         intent.putExtra("texto","selecciona para ver el plato en oferta");
         intent.setAction(MiReceiver.EVENTO_01);
         miContexto.sendBroadcast(intent);
-
     }//cierra metodo run
-}//cierra runa.
+};//cierra run
 Thread t1=new Thread(r);
 t1.start();
 Log.d("CLASE01","Finaliza hilo");
@@ -108,11 +114,22 @@ Log.d("CLASE01","Finaliza hilo");
     });
 
     }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+
     @Override
     public PlatoRecyclerAdapter.PlatoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v=(View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_plato,parent,false);
         PlatoViewHolder ph=new PlatoViewHolder(v);
         return  ph;
+    }
+
+    @Override
+    public void run() {
+
     }
 
 

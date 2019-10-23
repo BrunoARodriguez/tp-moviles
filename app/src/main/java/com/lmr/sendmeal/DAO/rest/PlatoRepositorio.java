@@ -8,7 +8,6 @@ import com.lmr.sendmeal.Plato;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +21,7 @@ private List<Plato> listaPlatos;
 
 public  static  final  int PLATO_ALTA=1;
 public  static  final  int PLATO_UPDATE=2;
-public  static  final  PLATO_BORRAR=3;
+public  static  final int PLATO_BORRAR=3;
 public  static  final  int PLATO_CONSULTA=4;
 public  static  final int PLATO_ERROR=9;
 
@@ -47,7 +46,7 @@ private  void  configurarRetrofit(){
     .baseUrl(_SERVER)
             .addConverterFactory(GsonConverterFactory.create())
 .build();
-    Log.d(TAG, "configurarRetrofit: INSTANCIA CREADA");
+    Log.d("sendmeal", "configurarRetrofit: INSTANCIA CREADA");
 
 this.platoRest=this.rf.create(PlatoRest.class);
 }
@@ -82,6 +81,60 @@ h.sendMessage(m);
                             });
 }//cierra actualizar
 
+public void  crearPlato(final  Plato pl, final Handler h){
+    Call<Plato> llamada=this.platoRest.crear(pl);
+llamada.enqueue(new Callback<Plato>() {
+    @Override
+    public void onResponse(Call<Plato> call, Response<Plato> response) {
+       Log.d("sendmeal", "despues de ejecutar"+response.isSuccessful());
+       Log.d("sendmeal", "codigo: "+response.code());
+if (response.isSuccessful()){
+listaPlatos.add(response.body());
+Message m=new
+        Message();
+m.arg1=PLATO_ALTA;
+h.sendMessage(m);
+
+}
+    }
+
+    @Override
+    public void onFailure(Call<Plato> call, Throwable t) {
+Log.d("sendmeal", "error "+t.getMessage());
+Message m=new Message();
+m.arg1=PLATO_ERROR;
+h.sendMessage(m);
+    }
+});
+} //cierra crearPlato
+
+public  void eliminarPlato(final  Plato pl,final  Handler h){
+Call<Plato> llamada = this.platoRest.borrar(pl.getId());
+llamada.enqueue(new Callback<Plato>() {
+    @Override
+    public void onResponse(Call<Plato> call, Response<Plato> response) {
+Log.d("sendmeal", "mientras se ejecuta"+response.isSuccessful());
+Log.d("sendmeal", "codigo: "+response.code());
+if (response.isSuccessful()){
+listaPlatos.remove(response.body());
+    Message m=new Message();
+    m.arg1=PLATO_BORRAR;
+    h.sendMessage(m);
+}
+    }
+
+    @Override
+    public void onFailure(Call<Plato> call, Throwable t) {
+Log.d("sendmeal", "error: "+t.getMessage());
+Message m=new
+        Message();
+m.arg1=PLATO_ERROR;
+h.sendMessage(m);
+    }
+});
+}// cierra eliminarPlato
+
+    //get de la lista
 public List<Plato> getListaPlatos() {
     return  listaPlatos;
 }
