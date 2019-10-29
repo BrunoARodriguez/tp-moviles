@@ -1,20 +1,34 @@
-package com.lmr.sendmeal;
+package com.lmr.sendmeal.domain;
 
-
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
+import androidx.annotation.RequiresApi;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.lmr.sendmeal.DAO.PlatoRepositorio;
 
 public class Plato implements Parcelable {
+    @SerializedName("plato_id")
+    @Expose
     private Integer id;
+    @SerializedName("titulo_plato")
+
+    @Expose
     private String titulo;
+    @SerializedName("descripcion_plato")
+    @Expose
     private String descripcion;
+    @SerializedName("precio_plato")
+    @Expose
     private Double precio;
+    @SerializedName("calorias_plato")
+    @Expose
     private Integer calorias;
+    @SerializedName("plato_en_oferta")
+    @Expose
     private  Boolean estaEnOferta;
 
 
@@ -30,17 +44,24 @@ public class Plato implements Parcelable {
     }
 
     //constructor para el parcelable
-private   Plato(Parcel parcel){
-this.readFromParcel(parcel);
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private   Plato(Parcel parcel){
+        this.readFromParcel(parcel);
     }
     //generando el creator
-    public  static  final  Parcelable.Creator<Plato> CREATOR=new Parcelable.Creator<Plato>() {
-public  Plato createFromParcel(Parcel parcel){
-return  new Plato(parcel);
-}
+    public  static  final  Creator<Plato> CREATOR=new Creator<Plato>() {
+        @RequiresApi(api = Build.VERSION_CODES.Q)
+        public Plato createFromParcel(Parcel parcel){
+            return  new Plato(parcel);
+        }
+
+        @Override
+        public Plato[] newArray(int i) {
+            return new Plato[0];
+        }
 
     };
-//getters y setters
+    //getters y setters
 
     public Integer getId() {
         return id;
@@ -90,20 +111,27 @@ return  new Plato(parcel);
         this.estaEnOferta = estaEnOferta;
     }
 
-@Override
-public  int describeContenst(){
+
+    public  int describeContenst(){
         return  0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-    parcel.writeString(titulo);
-    parcel.writeString(descripcion);
-    parcel.writeDouble(precio);
-    parcel.writeInt(calorias);
-    parcel.writeBoolean(estaEnOferta);
+    public int describeContents() {
+        return 0;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(titulo);
+        parcel.writeString(descripcion);
+        parcel.writeDouble(precio);
+        parcel.writeInt(calorias);
+        parcel.writeBoolean(estaEnOferta);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+
     private  void  readFromParcel(Parcel parcel){
         titulo = parcel.readString();
         descripcion = parcel.readString();
@@ -113,5 +141,6 @@ public  int describeContenst(){
 
     }
 }
+
 
 

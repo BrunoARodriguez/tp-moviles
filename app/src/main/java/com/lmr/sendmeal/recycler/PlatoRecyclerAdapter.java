@@ -2,15 +2,12 @@ package com.lmr.sendmeal.recycler;
 
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lmr.sendmeal.AltaPlatoActivity;
-import com.lmr.sendmeal.DAO.rest.PlatoRepositorio;
-import com.lmr.sendmeal.ListaItemsActivity;
+import com.lmr.sendmeal.DAO.PlatoRepositorio;
 import com.lmr.sendmeal.MiReceiver;
-import com.lmr.sendmeal.Plato;
 import com.lmr.sendmeal.R;
+
+import com.lmr.sendmeal.domain.Plato;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,7 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdap
     private Context miContexto;
 private static final  int RESULTADO=1;
 private PlatoRepositorio pr;
-    public PlatoRecyclerAdapter(List<Plato> myLista,Context context) {
+    public PlatoRecyclerAdapter(List<Plato> myLista, Context context) {
         platos = myLista;
         miContexto=context;
 
@@ -69,13 +67,7 @@ builder.setMessage(R.string.dialogo_quitar_plato)
         DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-Handler handler=new
-        Handler();
-                pr.eliminarPlato(pr.getListaPlatos().get(posicion), handler);
-        if (handler.obtainMessage().arg1==PlatoRepositorio.PLATO_BORRAR)
-Toast.makeText(miContexto,"El plato se elimino con exito", Toast.LENGTH_LONG).show();
-        if (handler.obtainMessage().arg1==PlatoRepositorio.PLATO_ERROR)
-            Toast.makeText(miContexto,"No se pudo eliminar el plato a ocurrido un error", Toast.LENGTH_SHORT).show();
+                pr.eliminarPlato(platos.get(posicion), miHandler);
             }})
 .setNegativeButton(R.string.dialogo_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -109,7 +101,7 @@ intent.putExtra("titulo","notificacion oferta");
 };//cierra run
 Thread t1=new Thread(r);
 t1.start();
-Log.d("CLASE01","Finaliza hilo");
+Log.d("sendmeal","Finaliza hilo");
         }
     });
 
@@ -117,7 +109,7 @@ Log.d("CLASE01","Finaliza hilo");
 
     @Override
     public int getItemCount() {
-        return 0;
+        return platos.size();
     }
 
     @Override
@@ -127,11 +119,16 @@ Log.d("CLASE01","Finaliza hilo");
         return  ph;
     }
 
+
+    public void  actualizarLista(List<Plato> lista){
+        platos=lista;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void run() {
 
     }
-
 
     public class PlatoViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitulo;
@@ -159,5 +156,23 @@ Log.d("CLASE01","Finaliza hilo");
     public void setPlatos(List<Plato> platos) {
         this.platos = platos;
     }
+
+    Handler miHandler=new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+
+            switch (msg.arg1){
+                case PlatoRepositorio.PLATO_BORRAR:
+                    PlatoRecyclerAdapter.this.notifyDataSetChanged();
+                    platos.remove(msg.arg2);
+                    Toast.makeText(miContexto,"Se borro el plato con exito",Toast.LENGTH_LONG).show();
+                    break;
+                case  PlatoRepositorio.PLATO_ERROR:
+Toast.makeText(miContexto,"Ocurrio un error al borrar el plato",Toast.LENGTH_LONG).show();
+                    break;
+            }//cierra swich
+        }
+    };
+
 }
 

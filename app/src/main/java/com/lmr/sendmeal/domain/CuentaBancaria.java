@@ -1,15 +1,17 @@
 package com.lmr.sendmeal.domain;
 
+
+
 public class CuentaBancaria {
 
-private Integer id;
-private  String alias;
-private String cbu;
+    private Integer id;
+    private String alias;
+    private String cbu;
 
-    public CuentaBancaria(Integer id,String alias,String cbu) {
+    public CuentaBancaria(Integer id, String alias, String cbu) {
         this.alias = alias;
-        this.id=id;
-        this.cbu=cbu;
+        this.id = id;
+        this.cbu = cbu;
     }
 
     public Integer getId() {
@@ -46,4 +48,5 @@ private String cbu;
                 '}';
     }
 }
+
 

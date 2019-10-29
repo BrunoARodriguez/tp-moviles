@@ -1,10 +1,13 @@
-package com.lmr.sendmeal.DAO.rest;
+package com.lmr.sendmeal.DAO;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.lmr.sendmeal.Plato;
+import com.lmr.sendmeal.DAO.rest.PlatoRest;
+
+import com.lmr.sendmeal.domain.CuentaBancaria;
+import com.lmr.sendmeal.domain.Plato;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +42,7 @@ return  INSTANCIA;
 }
 
 private Retrofit rf;
-private  PlatoRest platoRest;
+private PlatoRest platoRest;
 
 private  void  configurarRetrofit(){
     this.rf=new Retrofit.Builder()
@@ -51,7 +54,7 @@ private  void  configurarRetrofit(){
 this.platoRest=this.rf.create(PlatoRest.class);
 }
 
-public void  actualizarPlato(final  Plato pl, final Handler h){
+public void  actualizarPlato(final Plato pl, final Handler h){
     Call<Plato> llamada=this.platoRest.ctualizar(pl.getId(),pl);
     llamada.enqueue(new
                             Callback<Plato>() {
@@ -81,11 +84,11 @@ h.sendMessage(m);
                             });
 }//cierra actualizar
 
-public void  crearPlato(final  Plato pl, final Handler h){
+public void  crearPlato(final Plato pl, final Handler h){
     Call<Plato> llamada=this.platoRest.crear(pl);
 llamada.enqueue(new Callback<Plato>() {
     @Override
-    public void onResponse(Call<Plato> call, Response<Plato> response) {
+    public void onResponse(Call<Plato> call, Response<CuentaBancaria.Plato> response) {
        Log.d("sendmeal", "despues de ejecutar"+response.isSuccessful());
        Log.d("sendmeal", "codigo: "+response.code());
 if (response.isSuccessful()){
@@ -108,7 +111,7 @@ h.sendMessage(m);
 });
 } //cierra crearPlato
 
-public  void eliminarPlato(final  Plato pl,final  Handler h){
+public  void eliminarPlato(final Plato pl, final  Handler h){
 Call<Plato> llamada = this.platoRest.borrar(pl.getId());
 llamada.enqueue(new Callback<Plato>() {
     @Override
@@ -119,6 +122,7 @@ if (response.isSuccessful()){
 listaPlatos.remove(response.body());
     Message m=new Message();
     m.arg1=PLATO_BORRAR;
+    m.arg2=pl.getId();
     h.sendMessage(m);
 }
     }
@@ -139,6 +143,31 @@ public List<Plato> getListaPlatos() {
     return  listaPlatos;
 }
 
+public    void  buscarPlatos(final  Handler h){
+    Call<List<Plato>> llamada=this.platoRest.buscarTodosPlatos();
+llamada.enqueue(new Callback<List<Plato>>() {
+    @Override
+    public void onResponse(Call<List<Plato>> call, Response<List<Plato>> response) {
+        Log.d("sendmeal","se ejecuta "+response.isSuccessful());
+        Log.d("sendmeal","codigo es "+response.code());
+        if (response.isSuccessful()){
+            listaPlatos.add(response.body());
+            Message m=new
+                    Message();
+            m.arg1=PLATO_CONSULTA;
+            h.sendMessage(m);
+        }
+    }
+
+    @Override
+    public void onFailure(Call<List<Plato>> call, Throwable t) {
+        Log.d("sendmeal", "error: "+t.getMessage());
+        Message m=new Message();
+        m.arg1=PLATO_ERROR;
+        h.sendMessage(m);
+    }
+});
+}
 
 }
 
