@@ -40,12 +40,13 @@ public class Plato implements Parcelable {
         this.precio = precio;
         this.calorias = calorias;
         this.estaEnOferta = false;
-        PlatoRepositorio.getInstance().getListaPlatos().add(this);
+        //PlatoRepositorio.getInstance().getListaPlatos().add(this);
     }
 
     //constructor para el parcelable
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    private   Plato(Parcel parcel){
+
+  private Plato(Parcel parcel){
         this.readFromParcel(parcel);
     }
     //generando el creator
@@ -57,7 +58,7 @@ public class Plato implements Parcelable {
 
         @Override
         public Plato[] newArray(int i) {
-            return new Plato[0];
+            return new Plato[i];
         }
 
     };
@@ -112,9 +113,6 @@ public class Plato implements Parcelable {
     }
 
 
-    public  int describeContenst(){
-        return  0;
-    }
 
     @Override
     public int describeContents() {

@@ -18,13 +18,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
-import com.lmr.sendmeal.domain.CuentaBancaria;
+
 import com.lmr.sendmeal.domain.Plato;
 
-import java.io.Serializable;
 
 
-public class AltaPlatoActivity extends AppCompatActivity implements View.OnClickListener, Serializable {
+public class AltaPlatoActivity extends AppCompatActivity implements View.OnClickListener  {
     private EditText etTitulo;
     private EditText etDescripcion;
     private EditText etPrecio;

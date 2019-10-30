@@ -21,6 +21,10 @@ android {
 
 dependencies {
 
+    def room_version = "2.2.0-beta01"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
     def rf_version = "2.6.2"
     implementation "com.squareup.retrofit2:retrofit:$rf_version"
     implementation "com.squareup.retrofit2:converter-gson:$rf_version"

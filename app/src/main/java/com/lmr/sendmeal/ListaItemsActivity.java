@@ -95,14 +95,9 @@ break;
     return super.onOptionsItemSelected(item);
     }
 
-Handler miHandler=new Handler(Looper.myLooper()){
-    @Override
-    public void handleMessage(@NonNull Message msg) {
-        ((PlatoRecyclerAdapter) mAdapter).actualizarLista((List<Plato>) msg.obj);
-
-
+        public RecyclerView.Adapter getmAdapter() {
+            return mAdapter;
+        }
     }
-};
-}
 
 

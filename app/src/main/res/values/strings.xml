@@ -33,4 +33,5 @@
     <string name="nombre_canal">mlr canal</string>
     <string name="descripcion_canal">el canal de nuestras notificaciones</string>
 <string name="menu_buscar">Buscar platos</string>
+    <string name="nombre_base_datos">BD sendmeal 2019</string>
 </resources>

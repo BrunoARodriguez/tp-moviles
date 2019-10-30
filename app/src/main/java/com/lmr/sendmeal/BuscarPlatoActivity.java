@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
 
 import com.lmr.sendmeal.domain.Plato;
+import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +48,9 @@ btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
        buscarPlatos();
-        Message m=new Message();
-        m.obj=platosBuscados;
-       Intent i=new Intent(BuscarPlatoActivity.this, ListaItemsActivity.class);
-       startActivity(i);
+                
+        Intent i=new Intent(BuscarPlatoActivity.this, ListaItemsActivity.class);
+        startActivity(i);
     }
 });
 
