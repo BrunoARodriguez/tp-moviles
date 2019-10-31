@@ -1,12 +1,10 @@
 package com.lmr.sendmeal;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        createNotificacionChanel();
         this.toolbar = (Toolbar) findViewById(R.id.myTolbar);
         setSupportActionBar(toolbar);
 //this.createNotificacionChanel();
@@ -46,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i2);
                 return true;
             case R.id.mnuOpt3:
-                Intent i3 = new Intent(HomeActivity.this, ListaItemsActivity.class);
+                Intent i3 = new Intent(HomeActivity.this, ListaPlatosActivity.class);
                 startActivity(i3);
                 return true;
 
@@ -55,19 +54,21 @@ public class HomeActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-/*
+
+
+
 private void  createNotificacionChanel(){
 if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
     CharSequence name=getString(R.string.nombre_canal);
     String descripcion=getString(R.string.descripcion_canal);
     int importancia= NotificationManager.IMPORTANCE_DEFAULT;
-    NotificationChannel canal=new NotificationChannel("hola",name,importancia);
+    NotificationChannel canal=new NotificationChannel("sendmeals",name,importancia);
     canal.setDescription(descripcion);
     NotificationManager notificationManager=getSystemService(NotificationManager.class);
 notificationManager.createNotificationChannel(canal);
 }
 }
-*/
+
 
 }
 

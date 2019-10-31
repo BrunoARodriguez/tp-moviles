@@ -20,14 +20,17 @@ public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
                 Intent destino=new Intent(context,AltaPlatoActivity.class);
                 destino.putExtra("mostrandoOferta",true)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent pendingIntent=PendingIntent.getActivities(context,0,destino,0);
-                NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(this, canl)
+                //PendingIntent pendingIntent=PendingIntent.getActivities(context,0,destino,0);
+                PendingIntent pendingIntent=PendingIntent.getActivity(
+                        context,0,destino,0
+                );
+                NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(context, "sendmeals")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(intent.getExtras().getString("titulo"))
                         .setContentText(intent.getExtras().getString("texto"))
                         .setContentIntent(pendingIntent)
 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setVibrate(v,3)
+                        .setVibrate(v)
                         .setAutoCancel(true);
 
             }

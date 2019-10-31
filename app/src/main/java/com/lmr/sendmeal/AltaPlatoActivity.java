@@ -135,7 +135,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
                     startActivity(intent);
                     break;
                 case PlatoRepositorio.PLATO_UPDATE:
-                    Intent intent_1 = new Intent(AltaPlatoActivity.this, ListaItemsActivity.class);
+                    Intent intent_1 = new Intent(AltaPlatoActivity.this, ListaPlatosActivity.class);
                     intent_1.putExtra("parametro", plato)
                             .putExtra("parametro2", PlatoRepositorio.getInstance().getListaPlatos().indexOf(plato));
 

@@ -5,29 +5,31 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity(tableName = "Item_pedido", foreignKeys = @ForeignKey(entity = Pedido.class,parentColumns = "id_item",childColumns = "id_pedido"),@ForeignKey(entity =  Plato.class,parentColumns = "id",childColumns = "id_plato"))
+@Entity(tableName = "Item_pedido")
 public class ItemsPedido {
 @PrimaryKey(autoGenerate = true)
 @NonNull
 @ColumnInfo(name = "id_item")
     private  Integer id;
 @ColumnInfo(name = "id_pedido")
+@Relation(parentColumn = "id",entityColumn = "id_pedido", entity = Pedido.class)
 private Pedido pedido;
 @ColumnInfo(name = "id_plato")
-    private  Plato plato;
+    private  Integer idPlato;
     @ColumnInfo(name = "cantidad_item")
 private  Integer cantidad;
 @ColumnInfo(name = "precio_item")
     private  Double precio;
 
-    public ItemsPedido(Pedido pedido,Plato plato,Integer cantidad,Double precio) {
+    public ItemsPedido(Pedido pedido,Integer idPlato,Integer cantidad,Double precio) {
         this.id = Integer.valueOf(UUID.randomUUID().toString());
         this.pedido=pedido;
-        this.plato=plato;
+        this.idPlato=idPlato;
         this.cantidad=cantidad;
         this.precio=precio;
     }

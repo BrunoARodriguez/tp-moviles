@@ -22,7 +22,7 @@ public interface ItemsPedidoDao {
 @Delete
     public  void  borrarItemPedido(ItemsPedido itemsPedido);
 
-@Query("selec * from Item_pedido")
+@Query("select * from Item_pedido")
     public List<ItemsPedido> buscarItemPedido();
 
 

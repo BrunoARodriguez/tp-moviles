@@ -8,7 +8,7 @@ import com.lmr.sendmeal.domain.Pedido;
 
 import java.security.PublicKey;
 
-@Database(entities = {Pedido.class}; {ItemsPedido.class},version = 3)
+@Database(entities = {Pedido.class,ItemsPedido.class},version = 3)
 public abstract class MiBaseDeDatos extends RoomDatabase {
 public abstract PedidoDao pedidoDao();
 public  abstract ItemsPedidoDao itemsPedidoDao();

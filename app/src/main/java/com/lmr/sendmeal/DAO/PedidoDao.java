@@ -22,7 +22,7 @@ public  void  insertarPedido(Pedido pedido);
 @Delete
     public  void borrarPedido(Pedido pedido);
 
-@Query("selec * from Pedidos")
+@Query("select * from Pedidos")
    public List<Pedido> buscarPedidos();
 
 

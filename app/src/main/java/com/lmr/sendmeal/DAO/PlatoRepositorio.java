@@ -55,7 +55,7 @@ this.platoRest=this.rf.create(PlatoRest.class);
 }
 
 public void  actualizarPlato(final Plato pl, final Handler h){
-    Call<Plato> llamada=this.platoRest.ctualizar(pl.getId(),pl);
+    Call<Plato> llamada=this.platoRest.actualizar(pl.getId(),pl);
     llamada.enqueue(new
                             Callback<Plato>() {
                                 @Override
@@ -88,7 +88,7 @@ public void  crearPlato(final Plato pl, final Handler h){
     Call<Plato> llamada=this.platoRest.crear(pl);
 llamada.enqueue(new Callback<Plato>() {
     @Override
-    public void onResponse(Call<Plato> call, Response<CuentaBancaria.Plato> response) {
+    public void onResponse(Call<Plato> call, Response<Plato> response) {
        Log.d("sendmeal", "despues de ejecutar"+response.isSuccessful());
        Log.d("sendmeal", "codigo: "+response.code());
 if (response.isSuccessful()){
@@ -111,7 +111,7 @@ h.sendMessage(m);
 });
 } //cierra crearPlato
 
-public  void eliminarPlato(final Plato pl, final  Handler h){
+public  void eliminarPlato(final Plato pl, final Handler h){
 Call<Plato> llamada = this.platoRest.borrar(pl.getId());
 llamada.enqueue(new Callback<Plato>() {
     @Override
@@ -151,7 +151,7 @@ llamada.enqueue(new Callback<List<Plato>>() {
         Log.d("sendmeal","se ejecuta "+response.isSuccessful());
         Log.d("sendmeal","codigo es "+response.code());
         if (response.isSuccessful()){
-            listaPlatos.add(response.body());
+            listaPlatos=response.body();
             Message m=new
                     Message();
             m.arg1=PLATO_CONSULTA;

@@ -24,10 +24,10 @@ public interface    PlatoRest {
 Call<List<Plato>>buscarPorPrecio(@Query("precio_plato") Integer pminimo, @Query("precio_plato") Integer pMayor);
 
     @DELETE("/platos/{id}")
-Call<Void> borrar(@Path("id") Integer id);
+Call<Plato> borrar(@Path("id") Integer id);
 
     @PUT("/platos/{id}")
-    Call<Plato> ctualizar(@Path("id") Integer id, @Body Plato plato);
+    Call<Plato> actualizar(@Path("id") Integer id, @Body Plato plato);
 
 @POST("platos/")
     Call<Plato> crear(@Body Plato plato);

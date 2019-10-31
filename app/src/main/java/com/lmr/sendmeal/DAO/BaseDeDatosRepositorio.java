@@ -12,7 +12,7 @@ private PedidoDao pedidoDao;
 private  ItemsPedidoDao itemsPedidoDao;
 
 public BaseDeDatosRepositorio(Context ctx){
-    MiBaseDeDatos bd= Room.databaseBuilder(ctx,MiBaseDeDatos.class, R.string.nombre_base_datos)
+    MiBaseDeDatos bd= Room.databaseBuilder(ctx,MiBaseDeDatos.class, "BD sendmeal 2019") //R.string.nombre_base_datos)
             .fallbackToDestructiveMigration().build();
 pedidoDao=bd.pedidoDao();
 itemsPedidoDao=bd.itemsPedidoDao();
@@ -24,4 +24,5 @@ if (REPO == null){
 }
 return REPO;
 }
+
 }

@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -12,12 +13,12 @@ import java.util.UUID;
 @Entity(tableName = "Pedidos")
 
 public class Pedido {
-@PrimaryKey(autoGenerate = true,)
+@PrimaryKey(autoGenerate = true)
 @NonNull
 @ColumnInfo(name = "Id_pedido")
     private  Integer id;
 @ColumnInfo(name = "fecha_pedido")
-private Calendar fecha;
+private LocalDateTime fecha;
 @ColumnInfo(name = "estado_pedido")
 /*
 El estado de un pedido puede tomar los siguientes valores
@@ -48,6 +49,15 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.longitud=longitud;
 
 }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
 
     public Integer getId() {
         return id;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,72 +9,78 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/carView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="195dp"
         android:layout_gravity="center"
         app:cardCornerRadius="4dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="180dp">
 
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imagenPlato"
-                android:layout_width="117dp"
-                android:layout_height="150dp"
+                android:layout_width="130dp"
+                android:layout_height="124dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
                 android:contentDescription="Una imagen de un plato de comida"
-                android:src="@drawable/comida" />
+                android:src="@drawable/comida"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="275dp"
-                android:layout_height="159dp"
-                android:orientation="vertical">
+            <Button
+                android:id="@+id/btnOfertaPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="Oferta"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagenPlato"
+                app:layout_constraintStart_toEndOf="@+id/btnQuitarPlato" />
 
-                <LinearLayout
-                    android:layout_width="231dp"
-                    android:layout_height="89dp"
-                    android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnEditarPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="Editar"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagenPlato"
+                app:layout_constraintStart_toEndOf="@+id/imagenPlato" />
 
-                    <TextView
-                        android:id="@+id/tituloPlato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnQuitarPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="Quitar"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imagenPlato"
+                app:layout_constraintStart_toEndOf="@+id/btnEditarPlato" />
 
-                    <TextView
-                        android:id="@+id/precioPlato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+            <TextView
+                android:id="@+id/tituloPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/imagenPlato"
+                app:layout_constraintStart_toEndOf="@+id/imagenPlato" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnOfertaPlato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Oferta" />
-
-                    <Button
-                        android:id="@+id/btnEditarPlato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Editar" />
-
-                    <Button
-                        android:id="@+id/btnQuitarPlato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Quitar" />
-
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/precioPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/imagenPlato"
+                app:layout_constraintStart_toEndOf="@+id/tituloPlato" />
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 

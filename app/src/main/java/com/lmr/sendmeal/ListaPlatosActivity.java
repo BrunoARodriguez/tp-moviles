@@ -1,6 +1,5 @@
     package com.lmr.sendmeal;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,21 +10,15 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
-import com.lmr.sendmeal.domain.CuentaBancaria;
 import com.lmr.sendmeal.domain.Plato;
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
-import java.util.List;
 
-
-    public class ListaItemsActivity extends AppCompatActivity {
+    public class ListaPlatosActivity extends AppCompatActivity {
 private RecyclerView mRecycler;
 private  RecyclerView.Adapter mAdapter;
 private  RecyclerView.LayoutManager mLayoutManager;
@@ -35,7 +28,7 @@ private Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_items);
+        setContentView(R.layout.activity_lista_platos);
         this.toolbar = findViewById(R.id.myTolbar);
         setSupportActionBar(this.toolbar);
 
@@ -52,7 +45,7 @@ private Menu menu;
         mRecycler.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(mLayoutManager);
-        mAdapter = new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(), ListaItemsActivity.this);
+        mAdapter = new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(), ListaPlatosActivity.this);
         mRecycler.setAdapter(mAdapter);
     }
 
@@ -87,7 +80,7 @@ break;
             onBackPressed();
             return true;
             case R.id.menuBuscar:
-                Intent i=new Intent(ListaItemsActivity.this,BuscarPlatoActivity.class);
+                Intent i=new Intent(ListaPlatosActivity.this,BuscarPlatoActivity.class);
                 //como paso el handler
                 startActivity(i);
                 break;

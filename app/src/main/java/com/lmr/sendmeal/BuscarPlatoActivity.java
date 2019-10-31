@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
 
 import com.lmr.sendmeal.domain.Plato;
-import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,9 @@ btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
     public void onClick(View view) {
        buscarPlatos();
                 
-        Intent i=new Intent(BuscarPlatoActivity.this, ListaItemsActivity.class);
+        Intent i=new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
+
+        i.putExtra("listaPlatos",(Parcelable) platosBuscados);
         startActivity(i);
     }
 });

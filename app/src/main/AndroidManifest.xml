@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".BuscarPlatoActivity"></activity>
         <activity android:name=".AltaPlatoActivity" />
-        <activity android:name=".ListaItemsActivity" />
+        <activity android:name=".ListaPlatosActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
