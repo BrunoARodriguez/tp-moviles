@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrearPedidoActivity"
+    android:orientation="vertical">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Crear un pedido"
+    android:textSize="@dimen/titulo"/>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:text="@string/registro_fecha_pedido"
+    android:textSize="@dimen/etiquetas"/>
+
+    <EditText
+android:id="@+id/ingresoDiaPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ingrese el dia"
+        android:inputType="number"/>
+
+<EditText
+    android:id="@+id/ingresoMesPedido"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Ingrese el mes"
+    android:inputType="number"/>
+
+<EditText
+android:id="@+id/ingresoAnioPedido"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Ingrese el anio del pedido"
+    android:inputType="number"/>
+
+    <Button
+android:id="@+id/btnCrearPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:text="@string/button_crear_pedido"            />
+
+    <Button
+        android:id="@+id/btnEnviarPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buton_enviar_pedido"/>
+
+
+</LinearLayout>

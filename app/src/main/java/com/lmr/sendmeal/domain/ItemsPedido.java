@@ -52,12 +52,8 @@ private  Integer cantidad;
         this.pedido = pedido;
     }
 
-    public Plato getPlato() {
-        return plato;
-    }
-
-    public void setPlato(Plato plato) {
-        this.plato = plato;
+    public Integer getPlato() {
+        return this.idPlato;
     }
 
     public Integer getCantidad() {

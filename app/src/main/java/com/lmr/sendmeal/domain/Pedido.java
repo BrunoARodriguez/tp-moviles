@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -18,7 +19,7 @@ public class Pedido {
 @ColumnInfo(name = "Id_pedido")
     private  Integer id;
 @ColumnInfo(name = "fecha_pedido")
-private LocalDateTime fecha;
+private Calendar fecha;
 @ColumnInfo(name = "estado_pedido")
 /*
 El estado de un pedido puede tomar los siguientes valores

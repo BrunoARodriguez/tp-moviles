@@ -25,5 +25,6 @@ public  void  insertarPedido(Pedido pedido);
 @Query("select * from Pedidos")
    public List<Pedido> buscarPedidos();
 
-
+@Query("select * from Pedidos where Id_pedido = :idPedido")
+    public Pedido busccarPorId(Integer idPedido);
 }
