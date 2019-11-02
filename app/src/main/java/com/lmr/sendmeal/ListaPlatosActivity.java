@@ -17,6 +17,8 @@ import com.lmr.sendmeal.DAO.PlatoRepositorio;
 import com.lmr.sendmeal.domain.Plato;
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
+import java.util.List;
+
 
     public class ListaPlatosActivity extends AppCompatActivity {
 private RecyclerView mRecycler;
@@ -46,6 +48,11 @@ private Menu menu;
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(mLayoutManager);
         mAdapter = new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(), ListaPlatosActivity.this);
+if (this.getIntent() != null){
+    List<Plato> lista=this.getIntent().getExtras().getParcelableArrayList("listaPlatos");
+    ((PlatoRecyclerAdapter) mAdapter).actualizarLista(lista);
+
+}
         mRecycler.setAdapter(mAdapter);
     }
 

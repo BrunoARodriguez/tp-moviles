@@ -48,7 +48,10 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i3 = new Intent(HomeActivity.this, ListaPlatosActivity.class);
                 startActivity(i3);
                 return true;
-
+            case  R.id.mnuOpt4:
+Intent i4= new Intent(HomeActivity.this,CrearPedidoActivity.class);
+startActivity(i4);
+                return  true;
             default:
                 Toast.makeText(this, "¡Opción incorrecta!", Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);

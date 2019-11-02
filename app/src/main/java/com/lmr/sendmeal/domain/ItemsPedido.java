@@ -2,34 +2,40 @@ package com.lmr.sendmeal.domain;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
+import androidx.room.util.TableInfo;
 
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity(tableName = "Item_pedido")
+@Entity(tableName = "Item_pedido",foreignKeys = @ForeignKey(entity = Pedido.class,parentColumns = "id", childColumns = "id_pedido", onDelete = ForeignKey.NO_ACTION))
 public class ItemsPedido {
 @PrimaryKey(autoGenerate = true)
 @NonNull
-@ColumnInfo(name = "id_item")
+@ColumnInfo(name = "id")
     private  Integer id;
 @ColumnInfo(name = "id_pedido")
-@Relation(parentColumn = "id",entityColumn = "id_pedido", entity = Pedido.class)
-private Pedido pedido;
-@ColumnInfo(name = "id_plato")
-    private  Integer idPlato;
+private int idPedido;
+@Embedded
+private Plato plato;
+
     @ColumnInfo(name = "cantidad_item")
 private  Integer cantidad;
 @ColumnInfo(name = "precio_item")
     private  Double precio;
 
-    public ItemsPedido(Pedido pedido,Integer idPlato,Integer cantidad,Double precio) {
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public ItemsPedido(int idPedido, Plato plato, Integer cantidad, Double precio) {
         this.id = Integer.valueOf(UUID.randomUUID().toString());
-        this.pedido=pedido;
-        this.idPlato=idPlato;
+        this.idPedido=idPedido;
+this.plato=plato;
         this.cantidad=cantidad;
         this.precio=precio;
     }
@@ -44,16 +50,14 @@ private  Integer cantidad;
         this.id = id;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+
+
+    public Plato getPlato() {
+        return this.plato;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public Integer getPlato() {
-        return this.idPlato;
+    public void setPlato(Plato plato) {
+        this.plato = plato;
     }
 
     public Integer getCantidad() {
@@ -72,6 +76,8 @@ private  Integer cantidad;
         this.precio = precio;
     }
 
+
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,4 +91,5 @@ private  Integer cantidad;
     public int hashCode() {
         return Objects.hash(id, pedido);
     }
+    */
 }

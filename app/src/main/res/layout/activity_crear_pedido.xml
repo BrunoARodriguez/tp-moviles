@@ -40,17 +40,31 @@ android:id="@+id/ingresoAnioPedido"
     android:hint="Ingrese el anio del pedido"
     android:inputType="number"/>
 
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Ingrese la cantidad "
+    android:textSize="@dimen/etiquetas"/>
+
+    <EditText
+        android:id="@+id/ingresoCantidadPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+
     <Button
 android:id="@+id/btnCrearPedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:text="@string/button_crear_pedido"            />
+android:text="@string/button_crear_pedido"
+        android:enabled="true"/>
 
     <Button
         android:id="@+id/btnEnviarPedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/buton_enviar_pedido"/>
+        android:text="@string/buton_enviar_pedido"
+        android:enabled="false"/>
 
 
 </LinearLayout>

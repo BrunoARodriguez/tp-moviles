@@ -2,12 +2,16 @@ package com.lmr.sendmeal.domain;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -41,6 +45,8 @@ private  Integer estado;
 private  Double latitud;
 @ColumnInfo(name = "longitud_pedido")
 private  Double longitud;
+@Embedded
+    List<ItemsPedido> items= new ArrayList<>();
 
 public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.id=Integer.valueOf(UUID.randomUUID().toString());
@@ -51,6 +57,12 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
 
 }
 
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+    public Pedido(){
+}
     public Double getLatitud() {
         return latitud;
     }
@@ -82,5 +94,17 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public List<ItemsPedido> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemsPedido> items) {
+        this.items = items;
     }
 }

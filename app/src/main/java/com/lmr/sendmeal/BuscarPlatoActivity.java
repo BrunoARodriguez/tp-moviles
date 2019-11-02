@@ -50,9 +50,10 @@ btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
        buscarPlatos();
                 
         Intent i=new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
-
-        i.putExtra("listaPlatos",(Parcelable) platosBuscados);
-        startActivity(i);
+        Bundle bundle=new Bundle();
+        bundle.putParcelableArrayList("listaPlatos",platosBuscados);
+i.putExtras(bundle);
+startActivity(i);
     }
 });
 
