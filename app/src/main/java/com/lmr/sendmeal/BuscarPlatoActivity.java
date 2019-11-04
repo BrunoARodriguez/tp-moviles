@@ -3,6 +3,7 @@ package com.lmr.sendmeal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,13 +48,23 @@ nombre=etNombrePlato.getText().toString();
 btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-       buscarPlatos();
-                
-        Intent i=new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putParcelableArrayList("listaPlatos",platosBuscados);
-i.putExtras(bundle);
-startActivity(i);
+       if (getIntent().getBooleanExtra("agregar a pedido",true)) {
+Plato pl=seleccionarPlato();
+Intent i=new Intent(BuscarPlatoActivity.this,CrearPedidoActivity.class);
+i.putExtra("plato",pl);
+
+setResult(Activity.RESULT_OK);
+finish();
+       }
+       else {
+           buscarPlatos();
+
+           Intent i = new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
+           Bundle bundle = new Bundle();
+           bundle.putParcelableArrayList("listaPlatos", platosBuscados);
+           i.putExtras(bundle);
+           startActivity(i);
+       }
     }
 });
 
@@ -109,5 +120,12 @@ platosBuscados=PlatoRepositorio.getInstance().getListaPlatos();
     }//cierra swich
     }
 };
+
+public  Plato seleccionarPlato(){
+for (Plato pl: PlatoRepositorio.getInstance().getListaPlatos()){
+if (pl.getTitulo().equals(nombre))
+return  pl;
+}
+}
 }
 

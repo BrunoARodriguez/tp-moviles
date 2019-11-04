@@ -72,6 +72,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
             etDescripcion.setEnabled(false);
             etPrecio.setEnabled(false);
             etCalorias.setEnabled(false);
+            btnGuardar.setEnabled(false);
         } else {
             btnGuardar.setOnClickListener(this);
         }
