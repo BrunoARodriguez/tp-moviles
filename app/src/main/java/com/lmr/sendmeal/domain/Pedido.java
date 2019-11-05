@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
@@ -20,7 +21,7 @@ import java.util.UUID;
 public class Pedido {
 @PrimaryKey(autoGenerate = true)
 @NonNull
-@ColumnInfo(name = "Id_pedido")
+@ColumnInfo(name = "id_pedido")
     private  Integer id;
 @ColumnInfo(name = "fecha_pedido")
 private Calendar fecha;
@@ -45,8 +46,8 @@ private  Integer estado;
 private  Double latitud;
 @ColumnInfo(name = "longitud_pedido")
 private  Double longitud;
-@Embedded
-    List<ItemsPedido> items= new ArrayList<>();
+        @Ignore
+    List<ItemsPedido> items;
 
 public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.id=Integer.valueOf(UUID.randomUUID().toString());
@@ -54,7 +55,7 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.estado=estado;
     this.latitud=latitud;
     this.longitud=longitud;
-
+this.items = new ArrayList<>();
 }
 
     public void setLongitud(Double longitud) {
@@ -107,4 +108,7 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     public void setItems(List<ItemsPedido> items) {
         this.items = items;
     }
+
+
 }
+

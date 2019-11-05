@@ -59,6 +59,13 @@ android:id="@+id/btnCrearPedido"
 android:text="@string/button_crear_pedido"
         android:enabled="true"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:id="@+id/tvPlatoDelPedido"
+        android:textSize="@dimen/etiquetas"/>
     <Button
         android:id="@+id/btnEnviarPedido"
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lmr.sendmeal.DAO.BaseDeDatosRepositorio;
@@ -26,6 +27,7 @@ private EditText etDia;
 private EditText etMes;
 private EditText etAnio;
 private  EditText etCantidad;
+private TextView tvPlatoPedido;
 private Button btnCrearPedido;
 private Button btnEnviarPedido;
 //variables
@@ -33,7 +35,6 @@ private Button btnEnviarPedido;
     private Calendar fechaPedido;
 private  Integer cantidad;
 private Double precio;
-List<ItemsPedido> lista=new ArrayList<>();
 
 
     @Override
@@ -44,6 +45,7 @@ etDia=(EditText) findViewById(R.id.ingresoDiaPedido);
 etMes = (EditText) findViewById(R.id.ingresoMesPedido);
 etAnio = (EditText) findViewById(R.id.ingresoAnioPedido);
 etCantidad=(EditText) findViewById(R.id.ingresoCantidadPedido);
+tvPlatoPedido = (TextView) findViewById(R.id.tvPlatoDelPedido);
 btnCrearPedido = (Button) findViewById(R.id.btnCrearPedido);
 btnEnviarPedido = (Button) findViewById(R.id.btnEnviarPedido);
 
@@ -86,12 +88,17 @@ cantidad = Integer.valueOf(etCantidad.getText().toString());
         super.onActivityResult(requestCode, resultCode, data);
 switch (requestCode){
     case 1:
-if (resultCode= Activity.RESULT_OK) {
+if (resultCode== Activity.RESULT_OK) {
     Plato pl = data.getParcelableExtra("plato");
     precio = cantidad * pl.getPrecio();
     ItemsPedido item = new ItemsPedido(pedido.getId(), pl, cantidad,precio);
-lista.add(item);
-    pedido.setItems(lista);
+    pedido.setEstado(2);
+    pedido.getItems().add(item);
+BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearPedido(pedido);
+BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearItemsPedido(item);
+    tvPlatoPedido.setVisibility(View.VISIBLE);
+    tvPlatoPedido.setText("El plato "+pl.getTitulo()+" se agregó al pedido");
+    Toast.makeText(CrearPedidoActivity.this,"Si desea agregar mas platos preciona 'enviar pedido'", Toast.LENGTH_LONG).show();
 
 }
         break;

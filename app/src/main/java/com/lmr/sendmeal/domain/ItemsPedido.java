@@ -12,15 +12,16 @@ import androidx.room.util.TableInfo;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity(tableName = "Item_pedido",foreignKeys = @ForeignKey(entity = Pedido.class,parentColumns = "id", childColumns = "id_pedido", onDelete = ForeignKey.NO_ACTION))
+@Entity(tableName = "Item_pedido",foreignKeys = @ForeignKey(entity = Pedido.class, parentColumns = "id_pedido", childColumns = "id_pedido_h", onDelete = ForeignKey.CASCADE))
 public class ItemsPedido {
 @PrimaryKey(autoGenerate = true)
 @NonNull
 @ColumnInfo(name = "id")
     private  Integer id;
-@ColumnInfo(name = "id_pedido")
+@ColumnInfo(name = "id_pedido_h")
 private int idPedido;
 @Embedded
+@ColumnInfo(name = "plato_del_item")
 private Plato plato;
 
     @ColumnInfo(name = "cantidad_item")
