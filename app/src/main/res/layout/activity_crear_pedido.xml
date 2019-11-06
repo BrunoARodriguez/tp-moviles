@@ -27,7 +27,7 @@ android:id="@+id/ingresoDiaPedido"
         android:inputType="number"/>
 
 <EditText
-    android:id="@+id/ingresoMesPedido"
+    android:id="@+id/ingMesPed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Ingrese el mes"
@@ -47,7 +47,7 @@ android:id="@+id/ingresoAnioPedido"
     android:textSize="@dimen/etiquetas"/>
 
     <EditText
-        android:id="@+id/ingresoCantidadPedido"
+        android:id="@+id/ingCantPed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"/>

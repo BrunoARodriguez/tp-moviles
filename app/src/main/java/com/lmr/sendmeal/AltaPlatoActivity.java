@@ -62,11 +62,9 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
             etDescripcion.setText(plato.getDescripcion());
             etPrecio.setText(String.valueOf(plato.getPrecio()));
             etCalorias.setText(String.valueOf(plato.getCalorias()));
-            editando = true;
-        } else
-            editando = false;
-        Boolean desavilitarCampos;
-        desavilitarCampos = getIntent().getExtras().getBoolean("mostrandoOferta");
+        }
+        Boolean desavilitarCampos = false;
+        //desavilitarCampos = getIntent().getExtras().getBoolean("mostrandoOferta");
         if (desavilitarCampos) {
             etTitulo.setEnabled(false);
             etDescripcion.setEnabled(false);
@@ -93,7 +91,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
             this.etCalorias.setError("Valor mayor a 0");
         } else {
             if (titulo.length() >= 5 && descripcion.length() >= 10) {
-                if (editando) {
+                if (plato != null) {
                     plato.setTitulo(titulo);
                     plato.setDescripcion(descripcion);
                     plato.setPrecio(precio);
@@ -103,7 +101,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
 
                 } else {
                     Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
-                    this.plato = new Plato(this.idPlato, titulo, descripcion, precio, caloria);
+                    this.plato = new Plato(idPlato, titulo, descripcion, precio, caloria);
                     PlatoRepositorio.getInstance().crearPlato(plato, miHandler);
                     this.idPlato++;
                 }
@@ -111,7 +109,6 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(AltaPlatoActivity.this, "El titulo debe ser mayor a 4 caracteres y la descripcion mayor a 9", Toast.LENGTH_LONG).show();
 
         }
-
     } //cierra el metodo onClick
 
     @Override
@@ -127,7 +124,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
 
     Handler miHandler = new Handler(Looper.myLooper()) {
         @Override
-        public void handleMessage(@NonNull Message msg) {
+        public void handleMessage(Message msg) {
             Log.d("sendmeal", "Vuelve al handler " + msg.arg1);
 
             switch (msg.arg1) {
@@ -143,7 +140,9 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
                     setResult(Activity.RESULT_OK, intent_1);
                     finish();
                     break;
-
+case PlatoRepositorio.PLATO_ERROR:
+    Toast.makeText(AltaPlatoActivity.this,"No se pudo guardar el plato creado",Toast.LENGTH_LONG).show();
+    break;
             }//cierra swich
 
         }

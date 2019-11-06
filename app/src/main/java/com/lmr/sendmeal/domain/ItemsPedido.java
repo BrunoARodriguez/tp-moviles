@@ -12,22 +12,20 @@ import androidx.room.util.TableInfo;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity(tableName = "Item_pedido",foreignKeys = @ForeignKey(entity = Pedido.class, parentColumns = "id_pedido", childColumns = "id_pedido_h", onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "Item_pedido", foreignKeys = @ForeignKey(entity = Pedido.class, parentColumns = "id_pedido", childColumns = "id_pedido_h", onDelete = ForeignKey.CASCADE))
 public class ItemsPedido {
-@PrimaryKey(autoGenerate = true)
-@NonNull
-@ColumnInfo(name = "id")
-    private  Integer id;
-@ColumnInfo(name = "id_pedido_h")
-private int idPedido;
-@Embedded
-@ColumnInfo(name = "plato_del_item")
-private Plato plato;
-
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "idItem")
+    private Integer id;
+    @ColumnInfo(name = "id_pedido_h")
+    private int idPedido;
+    @Embedded
+    private Plato plato;
     @ColumnInfo(name = "cantidad_item")
-private  Integer cantidad;
-@ColumnInfo(name = "precio_item")
-    private  Double precio;
+    private Integer cantidad;
+    @ColumnInfo(name = "precio_item")
+    private Double precio;
 
     public int getIdPedido() {
         return idPedido;
@@ -35,10 +33,10 @@ private  Integer cantidad;
 
     public ItemsPedido(int idPedido, Plato plato, Integer cantidad, Double precio) {
         this.id = Integer.valueOf(UUID.randomUUID().toString());
-        this.idPedido=idPedido;
-this.plato=plato;
-        this.cantidad=cantidad;
-        this.precio=precio;
+        this.idPedido = idPedido;
+        this.plato = plato;
+        this.cantidad = cantidad;
+        this.precio = precio;
     }
 
     //setters y getters
@@ -50,7 +48,6 @@ this.plato=plato;
     public void setId(Integer id) {
         this.id = id;
     }
-
 
 
     public Plato getPlato() {

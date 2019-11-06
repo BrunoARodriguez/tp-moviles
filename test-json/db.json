@@ -1,6 +1,23 @@
 {
- "platos": [ 
-
-],
- "pedidos": [ ]
+  "platos": [
+    {
+      "calorias_plato": 54,
+      "descripcion_plato": "papas y nada ms",
+      "plato_en_oferta": false,
+      "plato_id": 0,
+      "precio_plato": 60.5,
+      "titulo_plato": "papas",
+      "id": 1
+    },
+    {
+      "calorias_plato": 54,
+      "descripcion_plato": "papas y nada ms",
+      "plato_en_oferta": false,
+      "plato_id": 0,
+      "precio_plato": 60.5,
+      "titulo_plato": "papas",
+      "id": 2
+    }
+  ],
+  "pedidos": []
 }

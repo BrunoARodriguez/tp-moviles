@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlatoRepositorio {
-public  static  String _SERVER="http//10.0.2.2:5000/";
+public  static  String _SERVER="http://192.168.0.103:5000/";
 private List<Plato> listaPlatos;
 
 public  static  final  int PLATO_ALTA=1;
@@ -84,7 +84,7 @@ h.sendMessage(m);
                             });
 }//cierra actualizar
 
-public void  crearPlato(final Plato pl, final Handler h){
+public void  crearPlato(Plato pl,final Handler h){
     Call<Plato> llamada=this.platoRest.crear(pl);
 llamada.enqueue(new Callback<Plato>() {
     @Override
@@ -93,8 +93,7 @@ llamada.enqueue(new Callback<Plato>() {
        Log.d("sendmeal", "codigo: "+response.code());
 if (response.isSuccessful()){
 listaPlatos.add(response.body());
-Message m=new
-        Message();
+Message m = new Message();
 m.arg1=PLATO_ALTA;
 h.sendMessage(m);
 

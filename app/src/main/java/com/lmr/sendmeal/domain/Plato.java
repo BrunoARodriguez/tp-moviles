@@ -13,10 +13,8 @@ import com.lmr.sendmeal.DAO.PlatoRepositorio;
 public class Plato implements Parcelable {
     @SerializedName("plato_id")
     @Expose
-
     private Integer id;
     @SerializedName("titulo_plato")
-
     @Expose
     private String titulo;
     @SerializedName("descripcion_plato")

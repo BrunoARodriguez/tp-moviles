@@ -22,8 +22,9 @@ public interface ItemsPedidoDao {
 @Delete
     public  void  borrarItemPedido(ItemsPedido itemsPedido);
 
-@Query("SELECT * from Item_pedido")
+@Query("SELECT * FROM Item_pedido")
     public List<ItemsPedido> buscarItemPedido();
 
-
+@Query("SELECT * FROM Item_pedido WHERE id_pedido_h = :idPedido")
+    public  List<ItemsPedido> buscarPorPedido(Integer idPedido);
 }
