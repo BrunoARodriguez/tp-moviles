@@ -26,7 +26,7 @@ Call<List<Plato>>buscarPorPrecio(@Query("precio_plato") Integer pminimo, @Query(
     @DELETE("/platos/{id}")
 Call<Plato> borrar(@Path("id") Integer id);
 
-    @PUT("/platos/{id}")
+    @PUT("platos/{id}")
     Call<Plato> actualizar(@Path("id") Integer id, @Body Plato plato);
 
 @POST("platos/")

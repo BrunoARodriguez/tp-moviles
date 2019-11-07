@@ -67,8 +67,7 @@ if (response.isSuccessful()){
     Log.d("sendmeal", "ejecutando");
 listaPlatos.remove(pl);
 listaPlatos.add(response.body());
-    Message m=new
-            Message();
+    Message m=new Message();
     m.arg1=PLATO_UPDATE;
     h.sendMessage(m);
 }
@@ -150,7 +149,8 @@ llamada.enqueue(new Callback<List<Plato>>() {
         Log.d("sendmeal","se ejecuta "+response.isSuccessful());
         Log.d("sendmeal","codigo es "+response.code());
         if (response.isSuccessful()){
-            listaPlatos=response.body();
+            listaPlatos.clear();
+            listaPlatos.addAll(response.body());
             Message m=new
                     Message();
             m.arg1=PLATO_CONSULTA;

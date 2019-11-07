@@ -1,5 +1,6 @@
     package com.lmr.sendmeal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +11,12 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
 import com.lmr.sendmeal.domain.Plato;
@@ -47,14 +52,18 @@ private Menu menu;
         mRecycler.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(mLayoutManager);
-        mAdapter = new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(), ListaPlatosActivity.this);
+PlatoRepositorio.getInstance().buscarPlatos(miAndler);
+/*
 if (this.getIntent() != null){
     List<Plato> lista=this.getIntent().getExtras().getParcelableArrayList("listaPlatos");
-    ((PlatoRecyclerAdapter) mAdapter).actualizarLista(lista);
+    mAdapter = new PlatoRecyclerAdapter(lista, ListaPlatosActivity.this);
+
+    mRecycler.setAdapter(mAdapter);
 
 }
-        mRecycler.setAdapter(mAdapter);
-    }
+*/
+}
+
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,6 +107,24 @@ break;
         public RecyclerView.Adapter getmAdapter() {
             return mAdapter;
         }
+    Handler miAndler= new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+switch (msg.arg1){
+    case  PlatoRepositorio.PLATO_CONSULTA:
+        mAdapter = new PlatoRecyclerAdapter(PlatoRepositorio.getInstance().getListaPlatos(), ListaPlatosActivity.this);
+
+        mRecycler.setAdapter(mAdapter);
+
+        break;
+    case PlatoRepositorio.PLATO_ERROR:
+        Toast.makeText(ListaPlatosActivity.this,"Ocurrió un error al modificar la lista de platos",Toast.LENGTH_LONG).show();
+        break;
+} //cierra swich
+
+
+        }
+    }; //cierra handler
     }
 
 

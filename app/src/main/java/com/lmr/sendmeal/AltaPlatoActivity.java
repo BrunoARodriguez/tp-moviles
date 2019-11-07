@@ -43,8 +43,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
         etPrecio = (EditText) findViewById(R.id.ingresoPrecioPlato);
         etCalorias = (EditText) findViewById(R.id.ingresoCaloriaPlato);
         btnGuardar = (Button) findViewById(R.id.btnGuardar);
-        //inicializamos el id
-        this.idPlato = 0;
+
         //para que el toolbar muestre la opccion de ir hacia atras
         this.toolbar = findViewById(R.id.myTolbar);
 
@@ -100,10 +99,10 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
                     PlatoRepositorio.getInstance().actualizarPlato(plato, miHandler);
 
                 } else {
-                    Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
-                    this.plato = new Plato(idPlato, titulo, descripcion, precio, caloria);
+
+                    this.plato = new Plato(titulo, descripcion, precio, caloria);
                     PlatoRepositorio.getInstance().crearPlato(plato, miHandler);
-                    this.idPlato++;
+
                 }
             } else
                 Toast.makeText(AltaPlatoActivity.this, "El titulo debe ser mayor a 4 caracteres y la descripcion mayor a 9", Toast.LENGTH_LONG).show();
@@ -129,6 +128,8 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
 
             switch (msg.arg1) {
                 case PlatoRepositorio.PLATO_ALTA:
+                    Toast.makeText(AltaPlatoActivity.this, "Su plato a sido dado de alta! ", Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(AltaPlatoActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;

@@ -9,7 +9,9 @@ android:orientation="vertical"
     tools:context=".ListaPlatosActivity">
 
         <include
-        layout="@layout/mi_toolbar"></include>
+        android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/mi_toolbar"></include>
 
 
 
