@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import com.lmr.sendmeal.DAO.PlatoRepositorio;
 
 public class Plato implements Parcelable {
-    @SerializedName("plato_id")
+    @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("titulo_plato")
@@ -135,6 +135,18 @@ public class Plato implements Parcelable {
         calorias = parcel.readInt();
         estaEnOferta = parcel.readBoolean();
 
+    }
+
+    @Override
+    public String toString() {
+        return "Plato{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", calorias=" + calorias +
+                ", estaEnOferta=" + estaEnOferta +
+                '}';
     }
 }
 

@@ -63,7 +63,7 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
             etCalorias.setText(String.valueOf(plato.getCalorias()));
         }
         Boolean desavilitarCampos = false;
-        //desavilitarCampos = getIntent().getExtras().getBoolean("mostrandoOferta");
+        desavilitarCampos = getIntent().getExtras().getBoolean("mostrandoOferta");
         if (desavilitarCampos) {
             etTitulo.setEnabled(false);
             etDescripcion.setEnabled(false);

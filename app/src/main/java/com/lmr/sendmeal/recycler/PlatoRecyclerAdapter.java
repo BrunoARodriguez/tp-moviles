@@ -35,7 +35,8 @@ public class PlatoRecyclerAdapter extends RecyclerView.Adapter<PlatoRecyclerAdap
     private List<Plato> platos=new ArrayList<>();
     private Context miContexto;
 private static final  int RESULTADO=1;
-private PlatoRepositorio pr;
+//private  PlatoRepositorio pr;
+
     public PlatoRecyclerAdapter(List<Plato> myLista, Context context) {
         platos = myLista;
         miContexto=context;
@@ -43,7 +44,7 @@ private PlatoRepositorio pr;
     }
 
 @Override
-public void onBindViewHolder(PlatoViewHolder holder, final int posicion) {
+public void onBindViewHolder(final PlatoViewHolder holder, final int posicion) {
 final Plato plato=this.platos.get(posicion);
 holder.tvTitulo.setText(plato.getTitulo());
 holder.tvPrecio.setText(String.valueOf(plato.getPrecio()));
@@ -57,17 +58,23 @@ i.putExtra("parametro", plato);
 
     }
 });
-
+holder.btnQuitar.setTag(posicion);
 holder.btnQuitar.setOnClickListener(new View.OnClickListener() {
     @Override
-    public void onClick(View view) {
-AlertDialog.Builder builder=new AlertDialog.Builder(miContexto);
+    public void onClick(final View view) {
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(miContexto);
 builder.setMessage(R.string.dialogo_quitar_plato)
 .setPositiveButton(R.string.dialogo_confirmar, new
         DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                pr.eliminarPlato(platos.get(posicion), miHandler);
+                Integer p = (Integer) view.getTag();
+                Log.d("sendmeals"," posicion: "+p);
+                Log.d("sendmeals"," posicion: "+platos.get(p));
+
+                PlatoRepositorio.getInstance().eliminarPlato(platos.get(p), miHandler);
+
             }})
 .setNegativeButton(R.string.dialogo_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -160,11 +167,13 @@ Log.d("sendmeal","Finaliza hilo");
     Handler miHandler=new Handler(Looper.myLooper()){
         @Override
         public void handleMessage(@NonNull Message msg) {
+            Log.d("sendmeals", "llegttttta?");
 
             switch (msg.arg1){
                 case PlatoRepositorio.PLATO_BORRAR:
+Log.d("sendmeals", "llega?");
                     PlatoRecyclerAdapter.this.notifyDataSetChanged();
-                    platos.remove(msg.arg2);
+
                     Toast.makeText(miContexto,"Se borro el plato con exito",Toast.LENGTH_LONG).show();
                     break;
                 case  PlatoRepositorio.PLATO_ERROR:

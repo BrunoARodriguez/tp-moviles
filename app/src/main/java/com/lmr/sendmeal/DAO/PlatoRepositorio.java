@@ -19,7 +19,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlatoRepositorio {
-public  static  String _SERVER="http://192.168.0.103:5000/";
+//public  static  String _SERVER="http://192.168.0.103:5000/";
+    public  static  String _SERVER="http://10.15.154.132:5000/";
+
 private List<Plato> listaPlatos;
 
 public  static  final  int PLATO_ALTA=1;
@@ -117,10 +119,11 @@ llamada.enqueue(new Callback<Plato>() {
 Log.d("sendmeal", "mientras se ejecuta"+response.isSuccessful());
 Log.d("sendmeal", "codigo: "+response.code());
 if (response.isSuccessful()){
-listaPlatos.remove(response.body());
+listaPlatos.remove(pl);
     Message m=new Message();
     m.arg1=PLATO_BORRAR;
-    m.arg2=pl.getId();
+    Log.d("sendmeals", "llega? repo");
+
     h.sendMessage(m);
 }
     }

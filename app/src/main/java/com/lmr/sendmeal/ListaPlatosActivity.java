@@ -47,8 +47,9 @@ private Menu menu;
         BroadcastReceiver br = new MiReceiver();
         IntentFilter filtro = new IntentFilter(MiReceiver.EVENTO_01);
         filtro.addAction(MiReceiver.EVENTO_01);
-        this.registerReceiver(br, filtro);
-        mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato);
+getApplication().getApplicationContext().registerReceiver(br, filtro);
+
+        mRecycler = (RecyclerView) findViewById(R.id.seleccionarPlato   );
         mRecycler.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(mLayoutManager);

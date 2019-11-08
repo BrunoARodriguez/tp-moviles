@@ -5,8 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.nio.channels.Channel;
 
@@ -17,7 +20,11 @@ public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
 
             @Override
     public  void  onReceive(Context context, Intent intent) {
+                Log.d("sendmeal","Recibido "+intent.getAction());
+                Toast.makeText(context,"Plato ya en oferta",Toast.LENGTH_LONG).show();
+
                 Intent destino=new Intent(context,AltaPlatoActivity.class);
+
                 destino.putExtra("mostrandoOferta",true)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //PendingIntent pendingIntent=PendingIntent.getActivities(context,0,destino,0);
@@ -33,6 +40,9 @@ public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
                         .setVibrate(v)
                         .setAutoCancel(true);
 
+                NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(context);
+                notificationManager.notify(99, mBuilder.build());
             }
 
 }

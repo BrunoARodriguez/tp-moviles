@@ -23,7 +23,7 @@ public interface    PlatoRest {
 @GET("platos/")
 Call<List<Plato>>buscarPorPrecio(@Query("precio_plato") Integer pminimo, @Query("precio_plato") Integer pMayor);
 
-    @DELETE("/platos/{id}")
+    @DELETE("platos/{id}")
 Call<Plato> borrar(@Path("id") Integer id);
 
     @PUT("platos/{id}")
