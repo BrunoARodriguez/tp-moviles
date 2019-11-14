@@ -32,7 +32,6 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
     private Plato plato;
     private Toolbar toolbar;
     private Boolean editando = false;
-    private Integer idPlato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,8 @@ public class AltaPlatoActivity extends AppCompatActivity implements View.OnClick
             etCalorias.setText(String.valueOf(plato.getCalorias()));
         }
         Boolean desavilitarCampos = false;
-        desavilitarCampos = getIntent().getExtras().getBoolean("mostrandoOferta");
+        desavilitarCampos = getIntent().getBooleanExtra("mostrandoOferta",false);
+
         if (desavilitarCampos) {
             etTitulo.setEnabled(false);
             etDescripcion.setEnabled(false);

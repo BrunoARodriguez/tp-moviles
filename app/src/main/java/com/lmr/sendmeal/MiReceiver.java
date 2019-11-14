@@ -24,6 +24,7 @@ public  static  final  String EVENTO_01="com.lmr.sendmeal.EVENTO_PARA_OFERTA";
                 Toast.makeText(context,"Plato ya en oferta",Toast.LENGTH_LONG).show();
 
                 Intent destino=new Intent(context,AltaPlatoActivity.class);
+destino.putExtra("parametro",intent.getParcelableExtra("plato"));
 
                 destino.putExtra("mostrandoOferta",true)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

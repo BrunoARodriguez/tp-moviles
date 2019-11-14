@@ -42,26 +42,32 @@ public class BuscarPlatoActivity extends AppCompatActivity {
         etNombrePlato = (EditText) findViewById(R.id.ingresoNombreABuscar);
         btnBuscarPlato = (Button) findViewById(R.id.btnBuscarPlato);
 
-        precioMax = Double.parseDouble(etPrecioMaximo.getText().toString());
-        precioMin = Double.parseDouble(etPrecioMinimo.getText().toString());
-        nombre = etNombrePlato.getText().toString();
+        etPrecioMinimo.setText("0.0");
+        etPrecioMaximo.setText("0.0");
+        final Boolean buscarParaPedido;
+        buscarParaPedido = getIntent().getBooleanExtra("agregar a pedido", false);
         btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (getIntent().getExtras().getBoolean("agregar a pedido")) {
-                    Plato pl = seleccionarPlato();
+                precioMax = Double.parseDouble(etPrecioMaximo.getText().toString());
+                precioMin = Double.parseDouble(etPrecioMinimo.getText().toString());
+                nombre = etNombrePlato.getText().toString();
+
+                PlatoRepositorio.getInstance().buscarPorParametros(precioMin, precioMax, nombre, miHandler);
+                if (buscarParaPedido) {
+
                     Intent i = new Intent(BuscarPlatoActivity.this, CrearPedidoActivity.class);
-                    i.putExtra("plato", pl);
+                    i.putExtra("plato", platosBuscados.get(0));
 
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {
-                    buscarPlatos();
 
                     Intent i = new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("listaPlatos", (ArrayList<? extends Parcelable>) platosBuscados);
                     i.putExtras(bundle);
+                    i.putExtra("actualizar", true);
                     startActivity(i);
                 }
             }
@@ -69,39 +75,6 @@ public class BuscarPlatoActivity extends AppCompatActivity {
 
     }
 
-    private void buscarPlatos() {
-        if (precioMin.equals(null) && precioMax.equals(null) && nombre.isEmpty()) {
-            PlatoRepositorio.getInstance().buscarPlatos(miHandler);
-
-        } else {
-            if (nombre.isEmpty()) {
-                buscarPorRangoPrecio();
-            } else {
-                buscarPorNombre();
-            }
-
-        }
-    }
-
-    //metodo por nombre
-    private void buscarPorNombre() {
-        for (Plato pl : PlatoRepositorio.getInstance().getListaPlatos()) {
-            if (pl.getTitulo().equals(nombre)) {
-                platosBuscados.add(pl);
-            }
-        } // cierra for
-    }
-
-    //metodo por precio
-    private void buscarPorRangoPrecio() {
-        for (Plato pl : PlatoRepositorio.getInstance().getListaPlatos()) {
-            if (precioMin <= pl.getPrecio() && pl.getPrecio() <= precioMax && platosBuscados.contains(pl)) {
-                platosBuscados.add(pl);
-            }
-
-        }//cierra for
-
-    }
 
     Handler miHandler = new Handler(Looper.myLooper()) {
         @Override
@@ -117,12 +90,5 @@ public class BuscarPlatoActivity extends AppCompatActivity {
         }
     };
 
-    public Plato seleccionarPlato() {
-        for (Plato pl : PlatoRepositorio.getInstance().getListaPlatos()) {
-            if (pl.getTitulo().equals(nombre))
-                return pl;
-        }
-        return null;
-    }
 }
 

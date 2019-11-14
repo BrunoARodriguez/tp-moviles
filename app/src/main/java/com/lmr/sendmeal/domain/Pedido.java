@@ -50,7 +50,7 @@ private  Double longitud;
     List<ItemsPedido> items;
 
 public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
-    this.id=Integer.valueOf(UUID.randomUUID().toString());
+    //this.id=Integer.valueOf(UUID.randomUUID().toString());
     this.fecha=fecha;
     this.estado=estado;
     this.latitud=latitud;

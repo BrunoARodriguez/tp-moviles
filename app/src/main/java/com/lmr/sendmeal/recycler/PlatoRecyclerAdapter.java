@@ -102,6 +102,7 @@ try {
 Intent intent=new Intent();
 intent.putExtra("titulo","notificacion oferta");
         intent.putExtra("texto","selecciona para ver el plato en oferta");
+        intent.putExtra("plato",plato);
         intent.setAction(MiReceiver.EVENTO_01);
         miContexto.sendBroadcast(intent);
     }//cierra metodo run

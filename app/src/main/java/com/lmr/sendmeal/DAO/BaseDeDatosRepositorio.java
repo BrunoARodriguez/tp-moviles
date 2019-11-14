@@ -30,11 +30,14 @@ if (REPO == null){
 return REPO;
 }
 
+    public MiBaseDeDatos getMiBaseDeDatos() {
+        return miBaseDeDatos;
+    }
+
 /*
 implementando los metodos para
 @pedidoDao que es la interfaz de pedido
 @ItemsPedidoDao que es la interfaz de los itemsPedidos
- */
 
 //para crear
 public  void crearPedido(Pedido pedido){
@@ -75,4 +78,8 @@ public  void  eliminarPedido(Pedido pedido){
 public  void eliminarItemsPedido(ItemsPedido itemsPedido){
  itemsPedidoDao.borrarItemPedido(itemsPedido);
 }
+*/
+
 }
+
+

@@ -21,7 +21,7 @@ public interface    PlatoRest {
     Call<List<Plato>> buscarTodosPlatos();
 
 @GET("platos/")
-Call<List<Plato>>buscarPorPrecio(@Query("precio_plato") Integer pminimo, @Query("precio_plato") Integer pMayor);
+Call<List<Plato>> buscarPorPrecioONombre(@Query("precio_plato_gte") Double pminimo, @Query("precio_plato_lte") Double pMayor, @Query("titulo_plato_like") String titulo);
 
     @DELETE("platos/{id}")
 Call<Plato> borrar(@Path("id") Integer id);

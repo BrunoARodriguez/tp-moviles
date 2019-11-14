@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lmr.sendmeal.DAO.BaseDeDatosRepositorio;
+import com.lmr.sendmeal.DAO.PedidoDao;
 import com.lmr.sendmeal.domain.ItemsPedido;
 import com.lmr.sendmeal.domain.Pedido;
 import com.lmr.sendmeal.domain.Plato;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -49,7 +51,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
         btnCrearPedido = (Button) findViewById(R.id.btnCrearPedido);
         btnEnviarPedido = (Button) findViewById(R.id.btnEnviarPedido);
 
-        etCantidad.setText("0");
+        etCantidad.setText("1");
         btnCrearPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,18 +59,22 @@ public class CrearPedidoActivity extends AppCompatActivity {
                 Integer mes = Integer.valueOf(etMes.getText().toString());
                 Integer anio = Integer.valueOf(etAnio.getText().toString());
 
+
                 if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12)) {
+                    Toast.makeText(CrearPedidoActivity.this, "Llego al if", Toast.LENGTH_LONG).show();
                     fechaPedido = Calendar.getInstance();
                     fechaPedido.set(Calendar.DAY_OF_MONTH, dia);
                     fechaPedido.set(Calendar.MONTH, mes);
                     fechaPedido.set(Calendar.YEAR, anio);
                     pedido = new Pedido(fechaPedido, 1, 0.0, 0.0);
-                    BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearPedido(pedido);
+GuardarPedido tareaGuardarPedido= new GuardarPedido();
+tareaGuardarPedido.execute(pedido);
                     Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
+
                 } else {
                     Toast.makeText(CrearPedidoActivity.this, "No se pudo crear el pedido", Toast.LENGTH_LONG).show();
                 }
-                btnEnviarPedido.setEnabled(true);
+
             }
         });
 
@@ -95,8 +101,9 @@ public class CrearPedidoActivity extends AppCompatActivity {
                     ItemsPedido item = new ItemsPedido(pedido.getId(), pl, cantidad, precio);
                     pedido.setEstado(2);
                     pedido.getItems().add(item);
-                    BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearPedido(pedido);
-                    BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearItemsPedido(item);
+                    GuardarPedido tareaGuardarPedido= new GuardarPedido();
+                    tareaGuardarPedido.execute(pedido);
+                    //BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearItemsPedido(item);
                     tvPlatoPedido.setVisibility(View.VISIBLE);
                     tvPlatoPedido.setText("El plato " + pl.getTitulo() + " se agregó al pedido");
                     Toast.makeText(CrearPedidoActivity.this, "Si desea agregar mas platos preciona 'enviar pedido'", Toast.LENGTH_LONG).show();
@@ -106,5 +113,30 @@ public class CrearPedidoActivity extends AppCompatActivity {
         }
 
     }
+
+    public class GuardarPedido extends AsyncTask<Pedido, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Pedido... pedidos) {
+            PedidoDao dao = BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this)
+                    .getMiBaseDeDatos().pedidoDao();
+            if (pedidos[0].getId() != null && pedidos[0].getId() > 0) {
+                dao.actualizarPedido(pedido);
+            } else {
+                dao.insertarPedido(pedido);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        btnEnviarPedido.setEnabled(true);
+            Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
+            startActivity(intent);
+
+        }
+    } //cierra la clase Guardar pedido
 }
 

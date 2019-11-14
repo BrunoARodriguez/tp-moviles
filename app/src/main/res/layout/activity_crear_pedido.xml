@@ -37,13 +37,13 @@ android:id="@+id/ingresoDiaPedido"
 android:id="@+id/ingresoAnioPedido"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Ingrese el anio del pedido"
+    android:hint="Ingrese el año del pedido"
     android:inputType="number"/>
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Ingrese la cantidad "
+    android:text="Ingrese la cantidad de unidades"
     android:textSize="@dimen/etiquetas"/>
 
     <EditText

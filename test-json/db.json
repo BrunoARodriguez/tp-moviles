@@ -7,15 +7,6 @@
       "plato_id": 0,
       "precio_plato": 60.5,
       "titulo_plato": "papas",
-      "id": 1
-    },
-    {
-      "calorias_plato": 54,
-      "descripcion_plato": "papas y nada ms",
-      "plato_en_oferta": false,
-      "plato_id": 0,
-      "precio_plato": 60.5,
-      "titulo_plato": "papas",
       "id": 2
     },
     {
@@ -43,6 +34,14 @@
       "precio_plato": 80.5,
       "titulo_plato": "arroz",
       "id": 5
+    },
+    {
+      "calorias_plato": 20,
+      "descripcion_plato": "De todos tipos.",
+      "plato_en_oferta": false,
+      "precio_plato": 50.8,
+      "titulo_plato": "empanadas",
+      "id": 6
     }
   ],
   "pedidos": []

@@ -22,6 +22,7 @@ import com.lmr.sendmeal.DAO.PlatoRepositorio;
 import com.lmr.sendmeal.domain.Plato;
 import com.lmr.sendmeal.recycler.PlatoRecyclerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,16 +54,19 @@ getApplication().getApplicationContext().registerReceiver(br, filtro);
         mRecycler.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(mLayoutManager);
-PlatoRepositorio.getInstance().buscarPlatos(miAndler);
-/*
-if (this.getIntent() != null){
-    List<Plato> lista=this.getIntent().getExtras().getParcelableArrayList("listaPlatos");
+
+if (getIntent().getBooleanExtra("actualizar",false)){
+    List<Plato> lista=new ArrayList<>();
+            lista.addAll((ArrayList) this.getIntent().getExtras().getParcelableArrayList("listaPlatos"));
     mAdapter = new PlatoRecyclerAdapter(lista, ListaPlatosActivity.this);
 
     mRecycler.setAdapter(mAdapter);
 
 }
-*/
+else {
+    PlatoRepositorio.getInstance().buscarPlatos(miAndler);
+
+}
 }
 
 
