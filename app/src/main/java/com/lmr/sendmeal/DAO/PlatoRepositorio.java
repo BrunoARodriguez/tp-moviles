@@ -19,8 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlatoRepositorio {
-    public static String _SERVER = "http://192.168.0.103:5000/";
-    //public  static  String _SERVER="http://10.15.154.132:5000/";
+    //public static String _SERVER = "http://192.168.0.103:5000/";
+    public  static  String _SERVER="http://10.15.155.134:5000/";
 
     private List<Plato> listaPlatos;
 
@@ -182,6 +182,7 @@ public class PlatoRepositorio {
                     Log.d("sendmeals", "se ejecuta");
                     listaPlatos.clear();
                     listaPlatos.addAll(response.body());
+                    Log.d("lista", listaPlatos.toString());
                     Message m = new Message();
                     m.arg1 = PLATO_CONSULTA;
                     h.sendMessage(m);

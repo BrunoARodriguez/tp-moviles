@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,14 +56,14 @@ public class BuscarPlatoActivity extends AppCompatActivity {
 
                 PlatoRepositorio.getInstance().buscarPorParametros(precioMin, precioMax, nombre, miHandler);
                 if (buscarParaPedido) {
-
+                    Log.d("buscarParaPedido","");
                     Intent i = new Intent(BuscarPlatoActivity.this, CrearPedidoActivity.class);
                     i.putExtra("plato", platosBuscados.get(0));
 
                     setResult(Activity.RESULT_OK);
                     finish();
                 } else {
-
+                    Log.d("platoBuscados", platosBuscados.toString());
                     Intent i = new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("listaPlatos", (ArrayList<? extends Parcelable>) platosBuscados);

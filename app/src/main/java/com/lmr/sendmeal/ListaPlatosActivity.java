@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -74,9 +75,27 @@ else {
         public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu2, menu);
             return super.onCreateOptionsMenu(menu);
-        }
 
+    }
 
+@Override
+public  void onStart(){
+        super.onStart();
+    if (getIntent().getBooleanExtra("actualizar",false)){
+        List<Plato> lista=new ArrayList<>();
+        lista.addAll((ArrayList) this.getIntent().getExtras().getParcelableArrayList("listaPlatos"));
+        Log.d("listaPlatos", lista.toString());
+        mAdapter = new PlatoRecyclerAdapter(lista, ListaPlatosActivity.this);
+
+        mRecycler.setAdapter(mAdapter);
+
+    }
+    else {
+        PlatoRepositorio.getInstance().buscarPlatos(miAndler);
+
+    }
+
+}
 
         @Override
 public void  onActivityResult(int requestCode, int resultCode, Intent data) {
