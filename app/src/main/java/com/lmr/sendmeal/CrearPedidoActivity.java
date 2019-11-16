@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lmr.sendmeal.DAO.BaseDeDatosRepositorio;
+import com.lmr.sendmeal.DAO.ItemsPedidoDao;
 import com.lmr.sendmeal.DAO.PedidoDao;
 import com.lmr.sendmeal.domain.ItemsPedido;
 import com.lmr.sendmeal.domain.Pedido;
@@ -34,6 +35,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
     private Button btnEnviarPedido;
     //variables
     private Pedido pedido;
+    private ItemsPedido itemsPedido;
     private Calendar fechaPedido;
     private Integer cantidad;
     private Double precio;
@@ -81,13 +83,15 @@ tareaGuardarPedido.execute(pedido);
         btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cantidad = Integer.valueOf(etCantidad.getText().toString());
+
                 Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
                 intent.putExtra("agregar a pedido", true);
                 startActivityForResult(intent, 1);
             }
         });
 
-        cantidad = Integer.valueOf(etCantidad.getText().toString());
+
     } // cierra onCreate
 
     @Override
@@ -98,15 +102,18 @@ tareaGuardarPedido.execute(pedido);
                 if (resultCode == Activity.RESULT_OK) {
                     Plato pl = data.getParcelableExtra("plato");
                     precio = cantidad * pl.getPrecio();
-                    ItemsPedido item = new ItemsPedido(pedido.getId(), pl, cantidad, precio);
+itemsPedido = new ItemsPedido(pedido.getId(), pl, cantidad, precio);
                     pedido.setEstado(2);
-                    pedido.getItems().add(item);
+                    pedido.getItems().add(itemsPedido);
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
-                    //BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this).crearItemsPedido(item);
-                    tvPlatoPedido.setVisibility(View.VISIBLE);
-                    tvPlatoPedido.setText("El plato " + pl.getTitulo() + " se agregó al pedido");
-                    Toast.makeText(CrearPedidoActivity.this, "Si desea agregar mas platos preciona 'enviar pedido'", Toast.LENGTH_LONG).show();
+GuardarItem tareaGuardarItem= new GuardarItem();
+tareaGuardarItem.execute(itemsPedido);
+                    Toast.makeText(CrearPedidoActivity.this,"El plato " + pl.getTitulo() + " se agregó al pedido", Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Toast.makeText(CrearPedidoActivity.this,"No se pudo agregar el plato al pedido",Toast.LENGTH_LONG).show();
 
                 }
                 break;
@@ -133,10 +140,36 @@ tareaGuardarPedido.execute(pedido);
             super.onPostExecute(aVoid);
 
         btnEnviarPedido.setEnabled(true);
-            Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
+        /*
+        Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
             startActivity(intent);
-
+*/
         }
     } //cierra la clase Guardar pedido
+
+    public  class  GuardarItem extends  AsyncTask<ItemsPedido,Void,Void>{
+
+        @Override
+        protected Void doInBackground(ItemsPedido... itemsPedidos) {
+            ItemsPedidoDao dao=BaseDeDatosRepositorio.getInstance(CrearPedidoActivity.this)
+                    .getMiBaseDeDatos().itemsPedidoDao();
+            if (itemsPedidos[0].getId()!= null && itemsPedidos[0].getId() > 0){
+                dao.actualizarItemPedido(itemsPedido);
+            } else {
+                dao.insertarItemPedido(itemsPedido);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            etCantidad.setText("1");
+            tvPlatoPedido.setVisibility(View.VISIBLE);
+            tvPlatoPedido.setText("Si desea agregar mas platos preciona 'enviar pedido'");
+
+        }
+    }//cierra guardarItem
 }
 

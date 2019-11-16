@@ -33,6 +33,7 @@ public class BuscarPlatoActivity extends AppCompatActivity {
     private Double precioMin;
     private Double precioMax;
     private String nombre;
+    private Boolean buscarParaPedido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,6 @@ public class BuscarPlatoActivity extends AppCompatActivity {
 
         etPrecioMinimo.setText("0.0");
         etPrecioMaximo.setText("0.0");
-        final Boolean buscarParaPedido;
         buscarParaPedido = getIntent().getBooleanExtra("agregar a pedido", false);
         btnBuscarPlato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,22 +55,7 @@ public class BuscarPlatoActivity extends AppCompatActivity {
                 nombre = etNombrePlato.getText().toString();
 
                 PlatoRepositorio.getInstance().buscarPorParametros(precioMin, precioMax, nombre, miHandler);
-                if (buscarParaPedido) {
-                    Log.d("buscarParaPedido","");
-                    Intent i = new Intent(BuscarPlatoActivity.this, CrearPedidoActivity.class);
-                    i.putExtra("plato", platosBuscados.get(0));
 
-                    setResult(Activity.RESULT_OK);
-                    finish();
-                } else {
-                    Log.d("platoBuscados", platosBuscados.toString());
-                    Intent i = new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("listaPlatos", (ArrayList<? extends Parcelable>) platosBuscados);
-                    i.putExtras(bundle);
-                    i.putExtra("actualizar", true);
-                    startActivity(i);
-                }
             }
         });
 
@@ -83,6 +68,28 @@ public class BuscarPlatoActivity extends AppCompatActivity {
             switch (msg.arg1) {
                 case PlatoRepositorio.PLATO_CONSULTA:
                     platosBuscados = PlatoRepositorio.getInstance().getListaPlatos();
+                    if (buscarParaPedido) {
+
+                        Plato plato = platosBuscados.get(0);
+                        if (plato != null) {
+                            Intent i = new Intent(BuscarPlatoActivity.this, CrearPedidoActivity.class);
+i.putExtra("plato",plato);
+
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                        } else {
+                            Toast.makeText(BuscarPlatoActivity.this, "No se encontraron platos, vuelva a intentarlo", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Log.d("platoBuscados", platosBuscados.toString());
+                        Intent i = new Intent(BuscarPlatoActivity.this, ListaPlatosActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("listaPlatos", (ArrayList<? extends Parcelable>) platosBuscados);
+                        i.putExtras(bundle);
+                        i.putExtra("actualizar", true);
+                        startActivity(i);
+                    }
+
                     break;
                 case PlatoRepositorio.PLATO_ERROR:
                     Toast.makeText(BuscarPlatoActivity.this, "No se pudieron buscar platos", Toast.LENGTH_LONG).show();
