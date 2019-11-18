@@ -34,6 +34,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
     private Button btnCrearPedido;
     private Button btnEnviarPedido;
     //variables
+    private  static  final int CODIGO = 0;
     private Pedido pedido;
     private ItemsPedido itemsPedido;
     private Calendar fechaPedido;
@@ -68,10 +69,8 @@ public class CrearPedidoActivity extends AppCompatActivity {
                     fechaPedido.set(Calendar.DAY_OF_MONTH, dia);
                     fechaPedido.set(Calendar.MONTH, mes);
                     fechaPedido.set(Calendar.YEAR, anio);
-                    pedido = new Pedido(fechaPedido, 1, 0.0, 0.0);
-GuardarPedido tareaGuardarPedido= new GuardarPedido();
-tareaGuardarPedido.execute(pedido);
-                    Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
+Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
+startActivityForResult(intent,CODIGO);
 
                 } else {
                     Toast.makeText(CrearPedidoActivity.this, "No se pudo crear el pedido", Toast.LENGTH_LONG).show();
@@ -98,6 +97,18 @@ tareaGuardarPedido.execute(pedido);
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case  CODIGO:
+                if (resultCode == Activity.RESULT_OK){
+                    Double latitud = data.getDoubleExtra("latitud",0.0);
+                    Double longitud = data.getDoubleExtra("longitud",0.0);
+                    pedido = new Pedido(fechaPedido, 1, latitud, longitud);
+                    GuardarPedido tareaGuardarPedido= new GuardarPedido();
+                    tareaGuardarPedido.execute(pedido);
+                    Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
+
+
+                }
+                break;
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
                     Plato pl = data.getParcelableExtra("plato");
