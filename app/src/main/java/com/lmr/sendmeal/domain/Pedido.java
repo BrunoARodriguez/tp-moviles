@@ -48,6 +48,8 @@ private  Double latitud;
 private  Double longitud;
         @Ignore
     List<ItemsPedido> items;
+@ColumnInfo(name = "token_pedido")
+private  String token;
 
 public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     //this.id=Integer.valueOf(UUID.randomUUID().toString());
@@ -56,6 +58,7 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.latitud=latitud;
     this.longitud=longitud;
 this.items = new ArrayList<>();
+this.token = null;
 }
 
     public void setLongitud(Double longitud) {
@@ -109,6 +112,12 @@ this.items = new ArrayList<>();
         this.items = items;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
 

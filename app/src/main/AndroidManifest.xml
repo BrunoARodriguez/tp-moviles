@@ -15,7 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MapsActivity"></activity>
+        <service
+            android:name=".MyFirebaseInstanceIDService"
+            android:enabled="true"
+            android:exported="false" >
+        <intent-filter>
+            <action android:name="com.google.firevase.MESSAGING_EVENT"/>
+        </intent-filter>
+
+        </service>
+
+        <activity android:name=".MapsActivity" />
         <activity android:name=".CrearPedidoActivity" />
         <activity android:name=".BuscarPlatoActivity" />
         <activity android:name=".AltaPlatoActivity" />
@@ -28,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -35,7 +46,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA" />
 
-
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
     </application>
 
 </manifest>

@@ -5,29 +5,35 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class TarjetaDeCredito {
-private Integer id;
-    private String  numeroDeTarjeta;
-private Calendar fechaVencimiento;
-private  Integer digitoVerificacion;
+    private Integer idTarjeta;
+    private String numeroDeTarjeta;
+    private Calendar fechaVencimiento;
+    private Integer digitoVerificacion;
 
-    public TarjetaDeCredito(Calendar fechaVencimiento,Integer digitoVerificacion,Integer id,String numeroDeTarjeta) {
+    public TarjetaDeCredito(Calendar fechaVencimiento, Integer digitoVerificacion, Integer idTarjeta, String numeroDeTarjeta) {
         this.fechaVencimiento = fechaVencimiento;
-        this.digitoVerificacion=digitoVerificacion;
-        this.id    =id;
-        this.numeroDeTarjeta=numeroDeTarjeta;
+        this.digitoVerificacion = digitoVerificacion;
+        this.idTarjeta = idTarjeta;
+        this.numeroDeTarjeta = numeroDeTarjeta;
     }
 
-    public String ngetNumeroDeTarjeta() {
+    public Integer getIdTarjeta() {
+        return idTarjeta;
+    }
+
+    public void setIdTarjeta(Integer idTarjeta) {
+        this.idTarjeta = idTarjeta;
+    }
+
+    public String getNumeroDeTarjeta() {
         return numeroDeTarjeta;
     }
 
     public void setNumeroDeTarjeta(String numeroDeTarjeta) {
-
         this.numeroDeTarjeta = numeroDeTarjeta;
     }
 
     public Calendar getFechaVencimiento() {
-
         return fechaVencimiento;
     }
 
@@ -35,22 +41,12 @@ private  Integer digitoVerificacion;
         this.fechaVencimiento = fechaVencimiento;
     }
 
-        public Integer  getDigitoVerificacion() {
-
+    public Integer getDigitoVerificacion() {
         return digitoVerificacion;
     }
 
     public void setDigitoVerificacion(Integer digitoVerificacion) {
-
         this.digitoVerificacion = digitoVerificacion;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

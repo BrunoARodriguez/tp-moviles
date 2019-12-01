@@ -6,12 +6,14 @@ import androidx.room.TypeConverters;
 
 import com.lmr.sendmeal.domain.ItemsPedido;
 import com.lmr.sendmeal.domain.Pedido;
+import com.lmr.sendmeal.domain.Usuario;
 
 import java.security.PublicKey;
 
-@Database(entities = {Pedido.class,ItemsPedido.class},version = 3)
+@Database(entities = {Pedido.class,ItemsPedido.class,Usuario.class},version = 3)
 @TypeConverters(ConvertirFecha.class)
 public abstract class MiBaseDeDatos extends RoomDatabase {
 public abstract PedidoDao pedidoDao();
 public  abstract ItemsPedidoDao itemsPedidoDao();
+public  abstract UsuarioDao usuarioDao();
 }

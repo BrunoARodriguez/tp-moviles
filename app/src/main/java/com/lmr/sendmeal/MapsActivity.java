@@ -17,7 +17,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,6 +36,7 @@ public class MapsActivity extends FragmentActivity
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -45,22 +45,23 @@ public class MapsActivity extends FragmentActivity
             @Override
             public void onMapLongClick(LatLng latLng) {
 
-if (ubicacion != null){
-    ubicacion.setPosition(latLng);
-} else {
-    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pedido enviado")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-}
+                if (ubicacion != null) {
+                    ubicacion.setPosition(latLng);
+                } else {
+                    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pedido enviado")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                }
 
-                Intent intent= new Intent((MapsActivity.this,CrearPedidoActivity.class));
-intent.putExtra("latitud",latLng.latitude);
-intent.putExtra("longitud",latLng.longitude);
-setResult(Activity.RESULT_OK);
-finish();
+                Intent intent = new Intent(MapsActivity.this, CrearPedidoActivity.class);
+                intent.putExtra("latitud", latLng.latitude);
+                intent.putExtra("longitud", latLng.longitude);
+                setResult(Activity.RESULT_OK);
+                finish();
             }
         });
 
     }
+
     private void actualizarMapa() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -75,9 +76,9 @@ finish();
         mMap.getUiSettings().setCompassEnabled(true);
     }
 
-    private  void actualizarCamara(LatLng posicion, Float zooms,Float grados){
-        CameraPosition cameraPosition= new CameraPosition.Builder()
-.target(posicion)
+    private void actualizarCamara(LatLng posicion, Float zooms, Float grados) {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(posicion)
                 .zoom(zooms)
                 .bearing(0)
                 .tilt(grados)
@@ -85,3 +86,4 @@ finish();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
+

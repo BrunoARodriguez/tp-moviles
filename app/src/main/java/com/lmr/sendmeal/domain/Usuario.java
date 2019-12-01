@@ -1,29 +1,45 @@
     package com.lmr.sendmeal.domain;
 
 import android.provider.ContactsContract;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity(tableName = "Usuario")
 public class Usuario {
-
-    private Integer id;
-    private String nombre;
-    private String contraseña;
-    private String correoElectronico;
-    private TarjetaDeCredito tarjeta;
+@PrimaryKey(autoGenerate = true)
+@NonNull
+@ColumnInfo(name = "id_usuario")
+private Integer id;
+@ColumnInfo(name = "nombre_usuario")
+private String nombre;
+@ColumnInfo(name = "contraseña_usuario")
+private String contraseña;
+@ColumnInfo(name = "correo_usuario")
+private String correoElectronico;
+@Embedded(prefix = "us_")
+private TarjetaDeCredito tarjeta;
+    @ColumnInfo(name = "credito_usuario")
     private Double credito;
+    @Embedded
     private CuentaBancaria cuenta;
-public static List<Usuario> usuarios=new ArrayList<>();
 
-    public Usuario(Integer id,String nombre,String contraseña,String correoElectronico,TarjetaDeCredito tarjeta,Double credito) {
-this.id=id;
+    public Usuario(String nombre,String contraseña,String correoElectronico,TarjetaDeCredito tarjeta,Double credito) {
+
         this.nombre = nombre;
         this.contraseña=contraseña;
         this.correoElectronico=correoElectronico;
 this.tarjeta=tarjeta;
 this.credito=credito;
-usuarios.add(this);
+
     }
 
     public String getNombre() {

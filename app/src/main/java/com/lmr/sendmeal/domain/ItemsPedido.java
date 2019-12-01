@@ -32,7 +32,7 @@ public class ItemsPedido {
     }
 
     public ItemsPedido(int idPedido, Plato plato, Integer cantidad, Double precio) {
-        this.id = Integer.valueOf(UUID.randomUUID().toString());
+        //this.id = Integer.valueOf(UUID.randomUUID().toString());
         this.idPedido = idPedido;
         this.plato = plato;
         this.cantidad = cantidad;
