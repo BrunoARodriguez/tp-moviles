@@ -1,5 +1,6 @@
 package com.lmr.sendmeal;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +22,8 @@ import android.widget.Toast;
 import com.lmr.sendmeal.DAO.BaseDeDatosRepositorio;
 import com.lmr.sendmeal.DAO.ItemsPedidoDao;
 import com.lmr.sendmeal.DAO.PedidoDao;
+import com.lmr.sendmeal.DAO.PedidoRepositorio;
+import com.lmr.sendmeal.DAO.rest.PedidoRes;
 import com.lmr.sendmeal.domain.ItemsPedido;
 import com.lmr.sendmeal.domain.Pedido;
 import com.lmr.sendmeal.domain.Plato;
@@ -35,6 +41,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
     private TextView tvPlatoPedido;
     private Button btnCrearPedido;
     private Button btnEnviarPedido;
+    private  Button btnAgregarPlato;
     //variables
     private  static  final int CODIGO = 0;
     private Pedido pedido;
@@ -55,6 +62,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
         tvPlatoPedido = (TextView) findViewById(R.id.tvPlatoDelPedido);
         btnCrearPedido = (Button) findViewById(R.id.btnCrearPedido);
         btnEnviarPedido = (Button) findViewById(R.id.btnEnviarPedido);
+btnAgregarPlato = (Button) findViewById(R.id.agregarPlato);
 
         etCantidad.setText("1");
         btnCrearPedido.setOnClickListener(new View.OnClickListener() {
@@ -80,15 +88,23 @@ startActivityForResult(intent,CODIGO);
 
             }
         });
+btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        cantidad = Integer.valueOf(etCantidad.getText().toString());
 
+        Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
+        intent.putExtra("agregar a pedido", true);
+        startActivityForResult(intent, 1);
+
+    }
+});
         btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cantidad = Integer.valueOf(etCantidad.getText().toString());
 
-                Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
-                intent.putExtra("agregar a pedido", true);
-                startActivityForResult(intent, 1);
+                pedido.setEstado(2);
+                PedidoRepositorio.getInstance().crearPedido(pedido,miHandler);
             }
         });
 
@@ -153,8 +169,8 @@ tareaGuardarItem.execute(itemsPedido);
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+btnAgregarPlato.setEnabled(true);
 
-        btnEnviarPedido.setEnabled(true);
         /*
         Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
             startActivity(intent);
@@ -181,10 +197,27 @@ tareaGuardarItem.execute(itemsPedido);
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             etCantidad.setText("1");
+            btnEnviarPedido.setEnabled(true);
             tvPlatoPedido.setVisibility(View.VISIBLE);
-            tvPlatoPedido.setText("Si desea agregar mas platos preciona 'enviar pedido'");
+            tvPlatoPedido.setText("Si desea agregar mas platos vuelve a presionar 'Agregar platos al pedido'");
 
         }
     }//cierra guardarItem
+
+Handler miHandler = new Handler(Looper.myLooper()){
+    @Override
+    public void handleMessage(@NonNull Message msg) {
+switch (msg.arg1){
+    case  PedidoRepositorio.ALTA_PEDIDO:
+        Toast.makeText(CrearPedidoActivity.this,"Su pedido se envió con éxito",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(CrearPedidoActivity.this,HomeActivity.class);
+        startActivity(intent);
+        break;
+        case  PedidoRepositorio.ERROR_PEDIDO:
+            Toast.makeText(CrearPedidoActivity.this,"No se pudo enviar el pedido", Toast.LENGTH_LONG).show();
+            tvPlatoPedido.setText("Vuelve a intentar enviar el pedido");
+}
+    }
+};
 }
 

@@ -39,9 +39,7 @@ s = FirebaseInstanceId.getInstance().getToken();
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-
-NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-notificationManager.notify(99, remoteMessage.getNotification());
+remoteMessage.getNotification().notify();
         Log.d("cuerpo de la notificacion", remoteMessage.getNotification().getBody());
     }
 }

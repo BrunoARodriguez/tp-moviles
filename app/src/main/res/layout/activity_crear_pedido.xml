@@ -67,6 +67,12 @@ android:text="@string/button_crear_pedido"
         android:id="@+id/tvPlatoDelPedido"
         android:textSize="@dimen/etiquetas"/>
     <Button
+        android:id="@+id/agregarPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar platos al pedido"
+        android:enabled="false"/>
+    <Button
         android:id="@+id/btnEnviarPedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

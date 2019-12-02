@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback {
     private GoogleMap mMap;
-    private Marker ubicacion;
+    private Marker ubicacion = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +35,6 @@ public class MapsActivity extends FragmentActivity
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        actualizarMapa();
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
@@ -48,8 +42,10 @@ public class MapsActivity extends FragmentActivity
                 if (ubicacion != null) {
                     ubicacion.setPosition(latLng);
                 } else {
-                    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Pedido enviado")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng)
+                            .draggable(true).title("Pedido enviado"));
+                    //                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+
                 }
 
                 Intent intent = new Intent(MapsActivity.this, CrearPedidoActivity.class);
@@ -59,6 +55,13 @@ public class MapsActivity extends FragmentActivity
                 finish();
             }
         });
+
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+        mMap = googleMap;
+        actualizarMapa();
 
     }
 

@@ -47,7 +47,7 @@ private  Double latitud;
 @ColumnInfo(name = "longitud_pedido")
 private  Double longitud;
         @Ignore
-    List<ItemsPedido> items;
+        List<ItemsPedido> items;
 @ColumnInfo(name = "token_pedido")
 private  String token;
 
@@ -61,12 +61,13 @@ this.items = new ArrayList<>();
 this.token = null;
 }
 
+
+    public Pedido(){
+}
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
 
-    public Pedido(){
-}
     public Double getLatitud() {
         return latitud;
     }

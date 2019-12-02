@@ -29,8 +29,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         createNotificacionChanel();
         this.toolbar = (Toolbar) findViewById(R.id.myTolbar);
+
         setSupportActionBar(toolbar);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+
 //this.createNotificacionChanel();
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override

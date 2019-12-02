@@ -7,6 +7,7 @@ import android.util.Log;
 import com.lmr.sendmeal.DAO.rest.PlatoRest;
 
 import com.lmr.sendmeal.domain.CuentaBancaria;
+import com.lmr.sendmeal.domain.Pedido;
 import com.lmr.sendmeal.domain.Plato;
 
 import java.util.ArrayList;
