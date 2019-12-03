@@ -74,7 +74,7 @@ btnAgregarPlato = (Button) findViewById(R.id.agregarPlato);
 
 
                 if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12)) {
-                    Toast.makeText(CrearPedidoActivity.this, "Llego al if", Toast.LENGTH_LONG).show();
+
                     fechaPedido = Calendar.getInstance();
                     fechaPedido.set(Calendar.DAY_OF_MONTH, dia);
                     fechaPedido.set(Calendar.MONTH, mes);
@@ -88,17 +88,6 @@ startActivityForResult(intent,CODIGO);
 
             }
         });
-btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        cantidad = Integer.valueOf(etCantidad.getText().toString());
-
-        Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
-        intent.putExtra("agregar a pedido", true);
-        startActivityForResult(intent, 1);
-
-    }
-});
         btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,16 +105,27 @@ btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case  CODIGO:
-                if (resultCode == Activity.RESULT_OK){
-                    Double latitud = data.getDoubleExtra("latitud",0.0);
-                    Double longitud = data.getDoubleExtra("longitud",0.0);
+                if (resultCode == Activity.RESULT_OK && data != null){
+//                    Toast.makeText(CrearPedidoActivity.this,"volvio a pedido",Toast.LENGTH_LONG).show();
+                    Double latitud = data.getDoubleExtra("latitud",0);
+                    Double longitud = data.getDoubleExtra("longitud",0);
                     pedido = new Pedido(fechaPedido, 1, latitud, longitud);
                     SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
                     pedido.setToken(preferences.getString("registrar_id", ""));
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
-                    Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
 
+                    btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            cantidad = Integer.valueOf(etCantidad.getText().toString());
+
+                            Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
+                            intent.putExtra("agregar a pedido", true);
+                            startActivityForResult(intent, 1);
+
+                        }
+                    });
 
                 }
                 break;
@@ -170,6 +170,7 @@ tareaGuardarItem.execute(itemsPedido);
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 btnAgregarPlato.setEnabled(true);
+            Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
 
         /*
         Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -35,26 +36,6 @@ public class MapsActivity extends FragmentActivity
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-
-                if (ubicacion != null) {
-                    ubicacion.setPosition(latLng);
-                } else {
-                    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng)
-                            .draggable(true).title("Pedido enviado"));
-                    //                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-
-                }
-
-                Intent intent = new Intent(MapsActivity.this, CrearPedidoActivity.class);
-                intent.putExtra("latitud", latLng.latitude);
-                intent.putExtra("longitud", latLng.longitude);
-                setResult(Activity.RESULT_OK);
-                finish();
-            }
-        });
 
     }
 
@@ -62,7 +43,41 @@ public class MapsActivity extends FragmentActivity
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         actualizarMapa();
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                Toast.makeText(MapsActivity.this, "Llego a longClick", Toast.LENGTH_LONG).show();
+                if (ubicacion != null) {
+                    ubicacion.setPosition(latLng);
+                } else {
+                    ubicacion = mMap.addMarker(new MarkerOptions().position(latLng)
+                            .draggable(true).title("Pedido enviado")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
+                }
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
+            }
+        });
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.equals(ubicacion)) {
+                    Intent data = new Intent(MapsActivity.this, CrearPedidoActivity.class);
+                    data.putExtra("latitud", marker.getPosition().latitude);
+                    data.putExtra("longitud", marker.getPosition().longitude);
+                    Toast.makeText(MapsActivity.this, "va para el click del marquer", Toast.LENGTH_SHORT).show();
+
+                    setResult(Activity.RESULT_OK,data);
+                    finish();
+                }
+
+                return false;
+            }
+        });
     }
 
     private void actualizarMapa() {
@@ -77,6 +92,7 @@ public class MapsActivity extends FragmentActivity
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     private void actualizarCamara(LatLng posicion, Float zooms, Float grados) {

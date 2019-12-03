@@ -19,15 +19,6 @@
       "id": 3
     },
     {
-      "calorias_plato": 100,
-      "descripcion_plato": "fideos salsa",
-      "plato_en_oferta": false,
-      "plato_id": 0,
-      "precio_plato": 100,
-      "titulo_plato": "fiddos",
-      "id": 4
-    },
-    {
       "calorias_plato": 28,
       "descripcion_plato": "arroz y pollo",
       "plato_en_oferta": false,
