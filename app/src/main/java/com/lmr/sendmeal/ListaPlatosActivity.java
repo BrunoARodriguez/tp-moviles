@@ -40,6 +40,7 @@ private Menu menu;
         setContentView(R.layout.activity_lista_platos);
         this.toolbar = findViewById(R.id.myTolbar);
         setSupportActionBar(this.toolbar);
+//getActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         /*

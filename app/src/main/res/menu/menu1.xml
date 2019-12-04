@@ -22,5 +22,10 @@
             android:title="@string/menu_opcion4"
             android:orderInCategory="3"
             app:showAsAction="ifRoom"></item>
+        <item android:id="@+id/mnuOpt5"
+            android:title="@string/menu_opcion5"
+            android:orderInCategory="1"
+            app:showAsAction="never"></item>
+
 
 </menu>

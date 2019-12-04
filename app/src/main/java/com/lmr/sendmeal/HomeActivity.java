@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
 //this.createNotificacionChanel();
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -77,6 +76,10 @@ public class HomeActivity extends AppCompatActivity {
             case  R.id.mnuOpt4:
 Intent i4= new Intent(HomeActivity.this,CrearPedidoActivity.class);
 startActivity(i4);
+                return  true;
+            case  R.id.mnuOpt5:
+                Intent i5 = new Intent(HomeActivity.this,Maps2Activity.class);
+                startActivity(i5);
                 return  true;
             default:
                 Toast.makeText(this, "¡Opción incorrecta!", Toast.LENGTH_LONG).show();

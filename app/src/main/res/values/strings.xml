@@ -20,6 +20,7 @@
     <string name="menu_opcion2">Crear un nuevo plato</string>
     <string name="menu_opcion3">Lista de platos</string>
     <string name="menu_opcion4">Crear un pedido</string>
+    <string name="menu_opcion5">Ver los pedidos en el mapa</string>
     <string name="registro_titulo_toolbar">Menú Tolbar</string>
     <string name="registro_texto_toolbar">Selecciona una opción</string>
     <string name="registro_titulo_alta">Dar de alta un plato</string>
@@ -37,5 +38,14 @@
     <string name="registro_fecha_pedido">Ingrese la fecha</string>
     <string name="button_crear_pedido">Crear pedido</string>
     <string name="buton_enviar_pedido">Enviar pedido</string>
-<string name="msg_token">sendmeals</string>
+    <string name="msg_token">sendmeals</string>
+    <string-array name="estados">
+        <item>Enviado</item>
+        <item>Aceptado</item>
+        <item>Rechazado</item>
+        <item>En preparacion</item>
+        <item>En envio</item>
+        <item>Entregado</item>
+
+    </string-array>
 </resources>

@@ -88,6 +88,18 @@ startActivityForResult(intent,CODIGO);
 
             }
         });
+        btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cantidad = Integer.valueOf(etCantidad.getText().toString());
+
+                Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
+                intent.putExtra("agregar a pedido", true);
+                startActivityForResult(intent, 1);
+
+            }
+        });
+
         btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,34 +112,27 @@ startActivityForResult(intent,CODIGO);
 
     } // cierra onCreate
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case  CODIGO:
                 if (resultCode == Activity.RESULT_OK && data != null){
-//                    Toast.makeText(CrearPedidoActivity.this,"volvio a pedido",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearPedidoActivity.this,"volvio a pedido",Toast.LENGTH_LONG).show();
                     Double latitud = data.getDoubleExtra("latitud",0);
                     Double longitud = data.getDoubleExtra("longitud",0);
                     pedido = new Pedido(fechaPedido, 1, latitud, longitud);
+
                     SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
                     pedido.setToken(preferences.getString("registrar_id", ""));
+
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
 
-                    btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            cantidad = Integer.valueOf(etCantidad.getText().toString());
-
-                            Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
-                            intent.putExtra("agregar a pedido", true);
-                            startActivityForResult(intent, 1);
-
-                        }
-                    });
 
                 }
+
                 break;
             case 1:
                 if (resultCode == Activity.RESULT_OK) {

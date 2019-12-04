@@ -15,14 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Maps2Activity"></activity>
+
         <service
             android:name=".MyFirebaseInstanceIDService"
             android:enabled="true"
-            android:exported="false" >
-        <intent-filter>
-            <action android:name="com.google.firevase.MESSAGING_EVENT"/>
-        </intent-filter>
-
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firevase.MESSAGING_EVENT" />
+            </intent-filter>
         </service>
 
         <activity android:name=".MapsActivity" />
@@ -45,8 +46,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA" />
-
-
     </application>
 
 </manifest>

@@ -78,6 +78,8 @@ public class MapsActivity extends FragmentActivity
                 return false;
             }
         });
+
+
     }
 
     private void actualizarMapa() {
