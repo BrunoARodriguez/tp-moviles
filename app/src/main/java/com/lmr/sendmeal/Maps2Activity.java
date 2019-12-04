@@ -48,6 +48,8 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
 
         DevolverLista tarea = new DevolverLista();
         tarea.execute();
+//listaPedidos = tarea.getPedidos();
+
     }
 
 
@@ -111,24 +113,26 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
-    public class DevolverLista extends AsyncTask<Void, Void, List> {
-
+    public class DevolverLista extends AsyncTask<Void, Void, List<Pedido>> {
+private  List<Pedido> pedidos;
         @Override
         protected List<Pedido> doInBackground(Void... voids) {
             PedidoDao dao = BaseDeDatosRepositorio.getInstance(Maps2Activity.this)
                     .getMiBaseDeDatos().pedidoDao();
-            List<Pedido> lista = new ArrayList<>();
-            lista = dao.buscarPedidos();
 
-            return lista;
+            return dao.buscarPedidos();
 
         }
 
 
         protected void onPostExecute(List<Pedido> arrayList) {
             super.onPostExecute(arrayList);
-            listaPedidos = arrayList;
+pedidos = arrayList;
+Toast.makeText(Maps2Activity.this,"pedido: " + arrayList.get(0).getId(), Toast.LENGTH_LONG).show();
+        }
 
+        public List<Pedido> getPedidos() {
+            return pedidos;
         }
     }
 }

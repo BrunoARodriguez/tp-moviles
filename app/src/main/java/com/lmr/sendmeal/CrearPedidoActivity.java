@@ -73,7 +73,7 @@ btnAgregarPlato = (Button) findViewById(R.id.agregarPlato);
                 Integer anio = Integer.valueOf(etAnio.getText().toString());
 
 
-                if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12)) {
+                if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (anio >= 2019 && anio <= 2027)) {
 
                     fechaPedido = Calendar.getInstance();
                     fechaPedido.set(Calendar.DAY_OF_MONTH, dia);
@@ -85,17 +85,6 @@ startActivityForResult(intent,CODIGO);
                 } else {
                     Toast.makeText(CrearPedidoActivity.this, "No se pudo crear el pedido", Toast.LENGTH_LONG).show();
                 }
-
-            }
-        });
-        btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cantidad = Integer.valueOf(etCantidad.getText().toString());
-
-                Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
-                intent.putExtra("agregar a pedido", true);
-                startActivityForResult(intent, 1);
 
             }
         });
@@ -176,6 +165,17 @@ tareaGuardarItem.execute(itemsPedido);
             super.onPostExecute(aVoid);
 btnAgregarPlato.setEnabled(true);
             Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
+            btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cantidad = Integer.valueOf(etCantidad.getText().toString());
+
+                    Intent intent = new Intent(CrearPedidoActivity.this, BuscarPlatoActivity.class);
+                    intent.putExtra("agregar a pedido", true);
+                    startActivityForResult(intent, 1);
+
+                }
+            });
 
         /*
         Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
