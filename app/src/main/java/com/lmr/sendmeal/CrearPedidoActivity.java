@@ -45,7 +45,7 @@ public class CrearPedidoActivity extends AppCompatActivity {
     //variables
     private  static  final int CODIGO = 0;
     private Pedido pedido;
-    private ItemsPedido itemsPedido;
+    private ItemsPedido itemsPedido = null;
     private Calendar fechaPedido;
     private Integer cantidad;
     private Double precio;
@@ -83,27 +83,19 @@ Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
 startActivityForResult(intent,CODIGO);
 
                 } else {
-                    Toast.makeText(CrearPedidoActivity.this, "No se pudo crear el pedido", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearPedidoActivity.this, "No se pudo crear el pedido. ¡Fecha incorrecta!", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
-        btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                pedido.setEstado(2);
-                PedidoRepositorio.getInstance().crearPedido(pedido,miHandler);
-            }
-        });
 
 
     } // cierra onCreate
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case  CODIGO:
@@ -112,11 +104,11 @@ startActivityForResult(intent,CODIGO);
                     Double latitud = data.getDoubleExtra("latitud",0.0);
                     Double longitud = data.getDoubleExtra("longitud",0.0);
 
-                    pedido = new Pedido(fechaPedido, 1, latitud, longitud);
+                    pedido = new Pedido(fechaPedido, 1, latitud, longitud,0.0);
 
                     SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
                     pedido.setToken(preferences.getString("registrar_id", ""));
-Toast.makeText(CrearPedidoActivity.this,"creo el pedido",Toast.LENGTH_LONG).show();
+//Toast.makeText(CrearPedidoActivity.this,"creo el pedido",Toast.LENGTH_LONG).show();
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
 
@@ -125,17 +117,17 @@ Toast.makeText(CrearPedidoActivity.this,"creo el pedido",Toast.LENGTH_LONG).show
 
                 break;
             case 1:
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+Toast.makeText(CrearPedidoActivity.this,"llego a crear pedido",Toast.LENGTH_LONG).show();
                     Plato pl = data.getParcelableExtra("plato");
                     precio = cantidad * pl.getPrecio();
-itemsPedido = new ItemsPedido(pedido.getId(), pl, cantidad, precio);
-                    pedido.setEstado(2);
+                    Toast.makeText(CrearPedidoActivity.this,"El plato " + pl.getTitulo() + " se agregó al pedido", Toast.LENGTH_LONG).show();
+
+                    itemsPedido = new ItemsPedido(pedido.getId(), pl, cantidad, precio);
+pedido.setPrecio(precio);
                     pedido.getItems().add(itemsPedido);
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
-GuardarItem tareaGuardarItem= new GuardarItem();
-tareaGuardarItem.execute(itemsPedido);
-                    Toast.makeText(CrearPedidoActivity.this,"El plato " + pl.getTitulo() + " se agregó al pedido", Toast.LENGTH_LONG).show();
 
                 }
                 else {
@@ -165,6 +157,7 @@ tareaGuardarItem.execute(itemsPedido);
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 pedido = null;
+btnCrearPedido.setEnabled(false);
             btnAgregarPlato.setEnabled(true);
             Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
             btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +171,12 @@ pedido = null;
 
                 }
             });
+if (itemsPedido != null){
+Toast.makeText(CrearPedidoActivity.this,"Se guardó el item",Toast.LENGTH_LONG).show();
+    GuardarItem tareaGuardarItem= new GuardarItem();
+    tareaGuardarItem.execute(itemsPedido);
 
+}
         /*
         Intent intent = new Intent(CrearPedidoActivity.this,MapsActivity.class);
             startActivity(intent);
@@ -209,6 +207,14 @@ pedido = null;
             btnEnviarPedido.setEnabled(true);
             tvPlatoPedido.setVisibility(View.VISIBLE);
             tvPlatoPedido.setText("Si desea agregar mas platos vuelve a presionar 'Agregar platos al pedido'");
+            btnEnviarPedido.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    pedido.setEstado(2);
+                    PedidoRepositorio.getInstance().crearPedido(pedido,miHandler);
+                }
+            });
 
         }
     }//cierra guardarItem

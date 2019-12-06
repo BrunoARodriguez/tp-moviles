@@ -48,7 +48,7 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
 
         DevolverLista tarea = new DevolverLista();
         tarea.execute();
-//listaPedidos = tarea.getPedidos();
+        listaPedidos = tarea.getPedidos();
 
     }
 
@@ -58,7 +58,7 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
 
-        agregoPedidosEnviados();
+        agregoPedidosEnviados(listaPedidos);
 
 
         //mueve la camara
@@ -70,18 +70,23 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
 
 
         String text = adapterView.getItemAtPosition(position).toString();
-        if (text.equals("Enviado")) {
-
-        } else if (text.equals("Aceptado")) {
-
-        } else if (text.equals("Rechazado")) {
-
-        } else if (text.equals("En preparacion")) {
-
-        } else if (text.equals("En envio")) {
-
-        } else if (text.equals("Entrago")) {
-
+        if(text.equals("Enviado")){
+            agregoPedidosEnviados(listaPedidos);
+        }
+        else if(text.equals("Aceptado")){
+            agregoPedidosAceptados(listaPedidos);
+        }
+        else if(text.equals("Rechazado")){
+            agregoPedidosRechazado(listaPedidos);
+        }
+        else if(text.equals("En preparacion")){
+            agregoPedidosEnPreparacion(listaPedidos);
+        }
+        else if(text.equals("En envio")){
+            agregoPedidosEnEnvio(listaPedidos);
+        }
+        else if(text.equals("Entrago")){
+            agregoPedidosEnEntregado(listaPedidos);
         }
 
 
@@ -90,28 +95,107 @@ public class Maps2Activity extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        agregoPedidosEnviados(listaPedidos);
     }
 
-    public void agregoPedidosEnviados() {
-        //Recupero los pedidos enviados
 
+    public void agregoPedidosEnviados(List<Pedido> lista_pedidos){
+        mMap.clear();
+        //Recupero los pedidos Enviados
+        for(Pedido auxPedido : lista_pedidos){
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            if(auxPedido.getEstado() == 2){
+                //seleccionados.add(auxPedido);
 
-        LatLng buenosAires = new LatLng(-34, -58);
-        mMap.addMarker(new MarkerOptions().position(buenosAires).title("Marker in Buenos Aires"));
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-        LatLng santaFe = new LatLng(-31.6333294, -60.7000008);
-        mMap.addMarker(new MarkerOptions().position(santaFe).title("Marker in Santa Fe"));
-        //.dragable es una propiedad de las marcas que nos deja moverlas
-
-        //mueve la camara
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
+            }
+        }
     }
+
+
+    public void agregoPedidosAceptados(List<Pedido> lista_pedidos){
+
+        //Recupero los pedidos Aceptados
+        mMap.clear();
+        for(Pedido auxPedido : lista_pedidos){
+
+            if(auxPedido.getEstado() == 3){
+                //seleccionados.add(auxPedido);
+
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+            }
+        }
+    }
+    public void agregoPedidosRechazado(List<Pedido> lista_pedidos){
+
+        //Recupero los pedidos Rechazados
+        mMap.clear();
+        for(Pedido auxPedido : lista_pedidos){
+
+            if(auxPedido.getEstado() == 4){
+                //seleccionados.add(auxPedido);
+
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+            } }}
+
+    public void agregoPedidosEnPreparacion(List<Pedido> lista_pedidos) {
+
+        //Recupero los pedidos En preparacion
+        mMap.clear();
+        for (Pedido auxPedido : lista_pedidos) {
+
+            if (auxPedido.getEstado() == 5) {
+                //seleccionados.add(auxPedido);
+
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+            }
+        }
+    }
+
+    public void agregoPedidosEnEnvio(List<Pedido> lista_pedidos){
+
+        //Recupero los pedidos En envio
+        mMap.clear();
+        for(Pedido auxPedido : lista_pedidos){
+
+            if(auxPedido.getEstado() == 6){
+                //seleccionados.add(auxPedido);
+
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            } }}
+
+
+    public void agregoPedidosEnEntregado(List<Pedido> lista_pedidos){
+
+        //Recupero los pedidos Entregados
+        mMap.clear();
+        for(Pedido auxPedido : lista_pedidos){
+
+            if(auxPedido.getEstado() == 7){
+                //seleccionados.add(auxPedido);
+
+                LatLng marker = new LatLng(auxPedido.getLatitud(), auxPedido.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(marker).title("Marker in ").snippet("Id: "
+                        + auxPedido.getId() + " Estado: " +auxPedido.getEstado() + " Precio: "+ auxPedido.getPrecio())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            } }}
 
     public class DevolverLista extends AsyncTask<Void, Void, List<Pedido>> {
 private  List<Pedido> pedidos;

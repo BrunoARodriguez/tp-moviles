@@ -23,21 +23,21 @@ android:text="@string/registro_fecha_pedido"
 android:id="@+id/ingresoDiaPedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ingrese el dia"
+        android:hint="ingrese el día:"
         android:inputType="number"/>
 
 <EditText
     android:id="@+id/ingMesPed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Ingrese el mes"
+    android:hint="Ingrese el mes:"
     android:inputType="number"/>
 
 <EditText
 android:id="@+id/ingresoAnioPedido"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Ingrese el año del pedido"
+    android:hint="Ingrese el año:"
     android:inputType="number"/>
 
 <TextView

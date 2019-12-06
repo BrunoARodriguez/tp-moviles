@@ -74,8 +74,8 @@ public class BuscarPlatoActivity extends AppCompatActivity {
                         if (plato != null) {
                             Intent i = new Intent(BuscarPlatoActivity.this, CrearPedidoActivity.class);
 i.putExtra("plato",plato);
-
-                            setResult(Activity.RESULT_OK);
+//Toast.makeText(BuscarPlatoActivity.this,"el plato es: "+ plato.getTitulo(), Toast.LENGTH_LONG).show();
+                            setResult(Activity.RESULT_OK,i);
                             finish();
                         } else {
                             Toast.makeText(BuscarPlatoActivity.this, "No se encontraron platos, vuelva a intentarlo", Toast.LENGTH_LONG).show();

@@ -46,7 +46,7 @@ public class MapsActivity extends FragmentActivity
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                Toast.makeText(MapsActivity.this, "Llego a longClick", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MapsActivity.this, "Llego a longClick", Toast.LENGTH_LONG).show();
                 if (ubicacion != null) {
                     ubicacion.setPosition(latLng);
                 } else {
@@ -69,7 +69,6 @@ public class MapsActivity extends FragmentActivity
                     Intent data = new Intent(MapsActivity.this, CrearPedidoActivity.class);
                     data.putExtra("latitud", marker.getPosition().latitude);
                     data.putExtra("longitud", marker.getPosition().longitude);
-                    Toast.makeText(MapsActivity.this, "va para el click del marquer", Toast.LENGTH_SHORT).show();
 
                     setResult(Activity.RESULT_OK,data);
                     finish();

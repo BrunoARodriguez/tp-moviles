@@ -208,10 +208,15 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 this.idCuenta++;
                 this.usuario.setCuenta(cuentaBancaria);
             }
+            Toast.makeText(MainActivity.this,"El usuario a sido creado",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
 
+            /*
+no guardamos en base de datos porque tira error por las anotaciones emvebidas
 GuardarUsuario tareaGuardarUsuario = new GuardarUsuario();
             tareaGuardarUsuario.execute(usuario);
-
+*/
 
 
             } else {
@@ -325,7 +330,7 @@ GuardarUsuario tareaGuardarUsuario = new GuardarUsuario();
         }
         return super.onOptionsItemSelected(item);
     }
-
+/*
     public  class GuardarUsuario extends AsyncTask<Usuario,Void,Void>{
 
         @Override
@@ -343,10 +348,9 @@ GuardarUsuario tareaGuardarUsuario = new GuardarUsuario();
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 usuario = null;
-        Toast.makeText(MainActivity.this,"El usuario a sido creado",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-        startActivity(intent);
+
         }
     } //cierra guardarUsuario
-
+*/
 }
+

@@ -10,7 +10,7 @@ import com.lmr.sendmeal.domain.Usuario;
 
 import java.security.PublicKey;
 
-@Database(entities = {Pedido.class,ItemsPedido.class,Usuario.class},version = 4)
+@Database(entities = {Pedido.class,ItemsPedido.class,Usuario.class},version = 5)
 @TypeConverters(ConvertirFecha.class)
 public abstract class MiBaseDeDatos extends RoomDatabase {
 public abstract PedidoDao pedidoDao();

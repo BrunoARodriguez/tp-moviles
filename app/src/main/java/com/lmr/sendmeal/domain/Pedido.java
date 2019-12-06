@@ -50,8 +50,10 @@ private  Double longitud;
         List<ItemsPedido> items;
 @ColumnInfo(name = "token_pedido")
 private  String token;
+@ColumnInfo(name = "precio_pedido")
+private  Double precio;
 
-public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
+public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud,Double precio){
     //this.id=Integer.valueOf(UUID.randomUUID().toString());
     this.fecha=fecha;
     this.estado=estado;
@@ -59,6 +61,7 @@ public  Pedido(Calendar fecha,Integer estado,Double latitud,Double longitud){
     this.longitud=longitud;
 this.items = new ArrayList<>();
 this.token = null;
+this.precio=precio;
 }
 
 
@@ -119,6 +122,14 @@ this.token = null;
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 }
 

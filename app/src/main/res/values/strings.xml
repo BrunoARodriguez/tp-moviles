@@ -35,7 +35,7 @@
     <string name="nombre_canal">mlr canal</string>
     <string name="descripcion_canal">el canal de nuestras notificaciones</string>
     <string name="menu_buscar">Buscar platos</string>
-    <string name="registro_fecha_pedido">Ingrese la fecha</string>
+    <string name="registro_fecha_pedido">Ingrese la fecha del pedido.</string>
     <string name="button_crear_pedido">Crear pedido</string>
     <string name="buton_enviar_pedido">Enviar pedido</string>
     <string name="msg_token">sendmeals</string>
