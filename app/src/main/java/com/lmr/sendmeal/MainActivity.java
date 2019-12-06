@@ -342,6 +342,7 @@ GuardarUsuario tareaGuardarUsuario = new GuardarUsuario();
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+usuario = null;
         Toast.makeText(MainActivity.this,"El usuario a sido creado",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(MainActivity.this,HomeActivity.class);
         startActivity(intent);

@@ -108,14 +108,15 @@ startActivityForResult(intent,CODIGO);
         switch (requestCode) {
             case  CODIGO:
                 if (resultCode == Activity.RESULT_OK && data != null){
-                    Toast.makeText(CrearPedidoActivity.this,"volvio a pedido",Toast.LENGTH_LONG).show();
-                    Double latitud = data.getDoubleExtra("latitud",0);
-                    Double longitud = data.getDoubleExtra("longitud",0);
+
+                    Double latitud = data.getDoubleExtra("latitud",0.0);
+                    Double longitud = data.getDoubleExtra("longitud",0.0);
+
                     pedido = new Pedido(fechaPedido, 1, latitud, longitud);
 
                     SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
                     pedido.setToken(preferences.getString("registrar_id", ""));
-
+Toast.makeText(CrearPedidoActivity.this,"creo el pedido",Toast.LENGTH_LONG).show();
                     GuardarPedido tareaGuardarPedido= new GuardarPedido();
                     tareaGuardarPedido.execute(pedido);
 
@@ -163,7 +164,8 @@ tareaGuardarItem.execute(itemsPedido);
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-btnAgregarPlato.setEnabled(true);
+pedido = null;
+            btnAgregarPlato.setEnabled(true);
             Toast.makeText(CrearPedidoActivity.this, "su pedido se creó", Toast.LENGTH_LONG).show();
             btnAgregarPlato.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -203,6 +205,7 @@ btnAgregarPlato.setEnabled(true);
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             etCantidad.setText("1");
+            itemsPedido = null;
             btnEnviarPedido.setEnabled(true);
             tvPlatoPedido.setVisibility(View.VISIBLE);
             tvPlatoPedido.setText("Si desea agregar mas platos vuelve a presionar 'Agregar platos al pedido'");
